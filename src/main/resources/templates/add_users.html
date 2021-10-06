@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Meeting Office Planner</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <style type="text/css">
+
+
+    </style>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+
+    <strong>Home/Add User/</strong> &nbsp; To add User
+
+    <a href="" data-toggle="modal" data-target="#exampleModal" >Click here</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form style="max-width: 600px; margin: 0 auto;" th:action="@{/users/save}" th:object="${user}" method="post">
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Employee ID</label>
+                        <div class="col-8">
+                            <input type="number" class="form-control" th:field="*{id}" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Full Name</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" th:field="*{employee_name}" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Gender:</label>
+                        <div class="col-8">
+                            <select class="form-control">
+                                <option value="">**SELECT**</option>
+                                <option th:field="*{gender}" value="male">Male</option>
+                                <option th:field="*{gender}" value="female">Female</option>
+                                <option th:field="*{gender}" value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Category:</label>
+                        <div class="col-8">
+                            <select class="form-control">
+                                <option value="">**SELECT**</option>
+                                <option th:field="*{category}" value="admin">Admin</option>
+                                <option th:field="*{category}" value="org_officer">Organization officer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Email:</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" th:field="*{email}" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Phone:</label>
+                        <div class="col-8">
+                            <input type="number" class="form-control" th:field="*{phone}" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Username:</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" th:field="*{username}" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Password:</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" th:field="*{password}" maxlength="20" minlength="4"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Organization</label>
+                        <div class="col-8">
+                            <select th:field="*{organization}" class="form-control" required>
+                                <th:block th:each="organization : ${organizations}">
+                                   <option th:text="organization.organization_name" th:value="organization.id"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-4">Department</label>
+                        <div class="col-8">
+                            <select th:field="*{department}" class="form-control" required>
+                                <th:block th:each="department : ${departments}">
+                                    <option th:text="department.department_name" th:value="department.id"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
