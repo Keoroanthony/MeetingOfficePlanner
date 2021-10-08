@@ -17,7 +17,7 @@ public class Department {
     @GeneratedValue( strategy= GenerationType.AUTO )
     private int id;
     @Column(nullable = false, length = 50)
-    private String department_name;
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "organization_id", nullable = false, referencedColumnName = "id")

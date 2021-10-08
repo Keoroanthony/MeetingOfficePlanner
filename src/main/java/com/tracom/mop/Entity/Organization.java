@@ -17,7 +17,7 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false, length = 50)
-    private String organization_name;
+    private String name;
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Department> department = new ArrayList<>();

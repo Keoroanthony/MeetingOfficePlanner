@@ -98,7 +98,7 @@
                         <div class="col-8">
                             <select th:field="*{organization}" class="form-control" required>
                                 <th:block th:each="organization : ${organizations}">
-                                   <option th:text="organization.organization_name" th:value="organization.id"></option>
+                                   <option th:text="organization.name" th:value="organization.id"></option>
                                 </th:block>
                             </select>
                         </div>
@@ -108,7 +108,7 @@
                         <div class="col-8">
                             <select th:field="*{department}" class="form-control" required>
                                 <th:block th:each="department : ${departments}">
-                                    <option th:text="department.department_name" th:value="department.id"></option>
+                                    <option th:text="department.name" th:value="department.id"></option>
                                 </th:block>
                             </select>
                         </div>
