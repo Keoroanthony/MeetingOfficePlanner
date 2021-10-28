@@ -30,9 +30,23 @@ public class MainController {
     }
 
 
-    @GetMapping("/index")
+    @GetMapping("")
     public String viewHomePage() {
         return ("index");
+    }
+
+
+    @GetMapping(value = "/login")
+    public String login (){
+        return "login";
+    }
+    @GetMapping("/logout")
+    public String logOutPage() {
+        return ("index");
+    }
+    @GetMapping("/home")
+    public String homePage() {
+        return ("home");
     }
 
 
@@ -51,7 +65,7 @@ public class MainController {
         List<Organization> organizations = organizationService.listOrganization();
         List<Department> departments = departmentService.listDepartment();
         model.addAttribute("user", new Employee());
-        model.addAttribute("organizations", organizations);
+        model.addAttribute("listOrganizations", organizations);
         model.addAttribute("departments", departments);
         return "add_users";
     }

@@ -15,6 +15,7 @@ public class EmployeeService {
     @Autowired
     public EmployeeService(EmployeeRepository employeeRepository){
         this.employeeRepository= employeeRepository;
+
     }
     //CREATE
     public void saveUser(Employee employee){
@@ -25,7 +26,8 @@ public class EmployeeService {
     public List<Employee> listUsers(){
         return employeeRepository.findAll();
     }
-   // DELETE
+
+    // DELETE
     public void deleteUser(int id){
         employeeRepository.deleteById(id);
     }

@@ -2,9 +2,13 @@ package com.tracom.mop;
 
 import com.tracom.mop.Entity.Employee;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public class CustomEmployeeDetails implements UserDetails {
     private Employee employee;
@@ -48,7 +52,7 @@ public class CustomEmployeeDetails implements UserDetails {
         return true;
     }
 
-//    public String getFullName() {
-//        return employee.getemployee_name() + " " + employee.getLastName();
-//    }
+    public Employee getUser() {
+        return this.employee;
+    }
 }

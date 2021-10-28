@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -28,9 +30,9 @@ public class Employee {
     @Column(nullable = false, length = 10)
     private String gender;
     @Column(nullable = false, length = 10)
-    private String category;
+    private String roles;
 
-
+    //contact details
     @Column(nullable = false, length = 50, unique = true)
     private String email;
     @Column(nullable = false, length = 20)
@@ -41,12 +43,15 @@ public class Employee {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+
+    //relationships
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "organization_id", nullable = false, referencedColumnName = "id")
     private Organization organization;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "department_id", nullable = false, referencedColumnName = "id")
     private Department department;
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Meeting> meetings = new ArrayList<>();
+
 }

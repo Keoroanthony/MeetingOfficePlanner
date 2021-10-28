@@ -27,7 +27,7 @@ class EmployeeRepositoryTest {
             employee.setEmployee_name("kimani");
             employee.setEmail("kimani.kim@gmail.com");
             employee.setPassword("Mungiki1");
-            employee.setCategory("admin");
+            employee.setRoles("admin");
             employee.setGender("male");
             employee.setPhone("0712334456");
             employee.setUsername("kimani");

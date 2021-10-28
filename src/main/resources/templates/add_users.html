@@ -21,7 +21,37 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
+
 </div>
+<div class="form-group row" th:object="${user}">
+    <label class="col-form-label col-4">Organization</label>
+    <div class="col-8">
+        <select th:field="*{organization}" class="form-control" required>
+            <th:block  th:each="orgs : ${listOrganizations}">
+                <option th:text="${orgs.name}" th:value="${orgs.id}"/>
+            </th:block>
+        </select>
+    </div>
+</div>
+
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="orgs : ${listOrganizations}">
+            <td th:value="${orgs.id}"/>
+            <td th:value="${orgs.name}"/>
+        </tr>
+    </tbody>
+</table>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -97,8 +127,8 @@
                         <label class="col-form-label col-4">Organization</label>
                         <div class="col-8">
                             <select th:field="*{organization}" class="form-control" required>
-                                <th:block th:each="organization : ${organizations}">
-                                   <option th:text="organization.name" th:value="organization.id"></option>
+                                <th:block th:each="org : ${listOrganizations}">
+                                   <option th:text="org.name" th:value="org.id"></option>
                                 </th:block>
                             </select>
                         </div>

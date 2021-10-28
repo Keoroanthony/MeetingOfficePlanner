@@ -45,15 +45,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/index").authenticated()
-                .anyRequest().permitAll()
+        //Configure the login and log out for the application
+            http.authorizeRequests()
+                .antMatchers("/login", "/register","/home", "/css/**","/js/**", "/images/**", "/vendor/**", "/assets/**").permitAll()
+                .antMatchers("/admin/**")
+                .authenticated()
                 .and()
-                .formLogin()
-                .usernameParameter("email")
-                .defaultSuccessUrl("/add_users")
-                .permitAll()
-                .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                .formLogin(
+                        form -> form
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/home")
+                                .failureUrl("/login?error=true")
+                )
+                .logout().logoutSuccessUrl("/logout").permitAll();
     }
+
 }
+

@@ -1,6 +1,5 @@
 package com.tracom.mop.Service;
 
-
 import com.tracom.mop.Entity.Organization;
 import com.tracom.mop.Repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,11 @@ import java.util.List;
 public class OrganizationService {
 
     private OrganizationRepository organizationRepository;
+
     @Autowired
     public OrganizationService(OrganizationRepository organizationRepository){
-        this.organizationRepository = organizationRepository;
+        this.organizationRepository= organizationRepository;
     }
-
     //CREATE
     public void saveOrganization(Organization organization){
         organizationRepository.save(organization);
@@ -26,7 +25,8 @@ public class OrganizationService {
     public List<Organization> listOrganization(){
         return organizationRepository.findAll();
     }
-    //DELETE
+
+    // DELETE
     public void deleteOrganization(int id){
         organizationRepository.deleteById(id);
     }
