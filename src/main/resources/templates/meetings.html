@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Meetings - Meeting Office Planner </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+    <!-- Form step -->
+    <link href="./vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
+    <!-- Daterange picker -->
+    <link href="./vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Clockpicker -->
+    <link href="./vendor/clockpicker/css/bootstrap-clockpicker.min.css" rel="stylesheet">
+    <!-- asColorpicker -->
+    <link href="./vendor/jquery-asColorPicker/css/asColorPicker.min.css" rel="stylesheet">
+    <!-- Material color picker -->
+    <link href="./vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <!-- Pick date -->
+    <link rel="stylesheet" href="./vendor/pickadate/themes/default.css">
+    <link rel="stylesheet" href="./vendor/pickadate/themes/default.date.css">
+    <!--select picker-->
+    <link rel="stylesheet" href="./vendor/select2/css/select2.min.css">
+    <!-- Custom Stylesheet -->
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+<!--*******************
+        Preloader start
+    ********************-->
+<div id="preloader">
+    <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+    </div>
+</div>
+<!--*******************
+    Preloader end
+********************-->
+
+
+<!--**********************************
+    Main wrapper start
+***********************************-->
+<div id="main-wrapper">
+
+    <!--**********************************
+        Nav header start
+    ***********************************-->
+    <div class="nav-header">
+        <a href="index.html" class="brand-logo">
+            <img class="logo-abbr" src="./images/logo2.png" alt="">
+            <img class="brand-title" src="./images/logo1.png" alt="">
+        </a>
+
+        <div class="nav-control">
+            <div class="hamburger">
+                <span class="line"></span><span class="line"></span><span class="line"></span>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Nav header end
+    ***********************************-->
+
+    <!--**********************************
+        Header start
+    ***********************************-->
+    <div class="header">
+        <div class="header-content">
+            <nav class="navbar navbar-expand">
+                <div class="collapse navbar-collapse justify-content-between">
+                    <div class="header-left">
+                        <div class="search_bar dropdown">
+                                <span class="search_icon p-3 c-pointer" data-toggle="dropdown">
+                                    <i class="mdi mdi-magnify"></i>
+                                </span>
+                            <div class="dropdown-menu p-0 m-0">
+                                <form>
+                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="navbar-nav header-right">
+                        <li class="nav-item dropdown notification_dropdown">
+                            <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                <i class="mdi mdi-bell"></i>
+                                <div class="pulse-css"></div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <ul class="list-unstyled">
+                                    <li class="media dropdown-item">
+                                        <span class="success"><i class="ti-user"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
+                                                </p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                    <li class="media dropdown-item">
+                                        <span class="primary"><i class="ti-shopping-cart"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                    <li class="media dropdown-item">
+                                        <span class="danger"><i class="ti-bookmark"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
+                                                </p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                    <li class="media dropdown-item">
+                                        <span class="primary"><i class="ti-heart"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                    <li class="media dropdown-item">
+                                        <span class="success"><i class="ti-image"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
+                                                </p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                </ul>
+                                <a class="all-notification" href="#">See all notifications <i
+                                        class="ti-arrow-right"></i></a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown header-profile">
+                            <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                <i class="mdi mdi-account"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="./app-profile.html" class="dropdown-item">
+                                    <i class="icon-user"></i>
+                                    <span class="ml-2">Profile </span>
+                                </a>
+                                <a href="./page-login.html" class="dropdown-item">
+                                    <i class="icon-key"></i>
+                                    <span class="ml-2">Logout </span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+    <!--**********************************
+        Sidebar start
+    ***********************************-->
+    <div class="quixnav">
+        <div class="quixnav-scroll">
+            <ul class="metismenu" id="menu">
+                <li class="nav-label first">Main Menu</li>
+                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
+                    <ul aria-expanded="false">
+                        <li><a th:href="@{/profile}">Profile</a></li>
+                    </ul>
+                </li>
+                <li class="nav-label">Apps</li>
+                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
+                    <ul aria-expanded="false">
+                        <li><a th:href="@{/calendar}">Calendar</a></li>
+                    </ul>
+                </li>
+                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-world-2"></i><span class="nav-text">View</span></a>
+                    <ul aria-expanded="false">
+                        <li><a th:href="@{/meetings}">Meetings</a></li>
+                        <li><a th:href="@{/users}">Users</a></li>
+                    </ul>
+                </li>
+                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-single-copy-06"></i><span class="nav-text">Actions</span></a>
+                    <ul aria-expanded="false">
+                        <li><a href="./page-register.html">LogOut</a></li>
+                        <li><a href="./page-lock-screen.html">Lock Screen</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+    <!--**********************************
+        Sidebar end
+    ***********************************-->
+
+    <!--**********************************
+        Content body start
+    ***********************************-->
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Hi, welcome back!</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Views</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Meetings</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-xl-12 col-xxl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Steps</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="#" id="step-form-horizontal" class="step-form-horizontal">
+                                <div>
+                                    <h4>Meeting Info</h4>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-lg-6 mb-4">
+                                                <div class="form-group">
+                                                    <label class="text-label">Meeting Name*</label>
+                                                    <input type="text" name="firstName" class="form-control" placeholder="Timelines" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-4">
+                                                <div class="example">
+                                                    <p class="mb-1">Date Range With Time</p>
+                                                    <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 mb-4">
+                                                <div class="form-group">
+                                                    <label class="text-label">Meeting Description*</label>
+                                                    <div class="input-group">
+                                                        <textarea class="form-control" rows="4" id="comment"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <h4>Room</h4>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-4">
+                                                <div class="form-group">
+                                                    <label class="text-label">Board Room*</label>
+                                                    <label>Select list (select one):</label>
+                                                    <select class="form-control" id="sel1">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <h4>Resources</h4>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-4">
+                                                <div class="form-group">
+                                                    <label class="text-label">Resources*</label>
+                                                    <label>Mutiple select list (hold shift to select more than one):</label>
+                                                    <select multiple class="form-control" id="sel2">
+                                                        <option>WhiteBoard</option>
+                                                        <option>Telephone</option>
+                                                        <option>Screen</option>
+                                                        <option>Camera</option>
+                                                        <option>Projector</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <h4>Co-Owners</h4>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-4">
+                                                <div class="form-group">
+                                                    <label class="text-label">Co-owners*</label>
+                                                    <label>Select list (select one/multiple):</label>
+                                                    <select id="multi-value-select" multiple="multiple">
+                                                        <option selected="selected">orange</option>
+                                                        <option>white</option>
+                                                        <option selected="selected">purple</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="skip-email text-center">
+                                                    <p>Recommended: send notifications to co-owners</p>
+                                                    <input type="checkbox" class="form-check-input" id="check2" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+
+
+    <!--**********************************
+        Footer start
+    ***********************************-->
+    <div class="footer">
+        <div class="copyright">
+            <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Anthony Keoro</a> 2021</p>
+            <p>Distributed by <a href="https://tracom.co.ke/" target="_blank">Tracom Services Limited</a></p>
+        </div>
+    </div>
+    <!--**********************************
+        Footer end
+    ***********************************-->
+
+    <!--**********************************
+       Support ticket button start
+    ***********************************-->
+
+    <!--**********************************
+       Support ticket button end
+    ***********************************-->
+
+
+</div>
+<!--**********************************
+    Main wrapper end
+***********************************-->
+
+<!--**********************************
+    Scripts
+***********************************-->
+<!-- Required vendors -->
+<script src="./vendor/global/global.min.js"></script>
+<script src="./js/quixnav-init.js"></script>
+<script src="./js/custom.min.js"></script>
+
+
+
+<script src="./vendor/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="./vendor/jquery-validation/jquery.validate.min.js"></script>
+<!-- Form validate init -->
+<script src="./js/plugins-init/jquery.validate-init.js"></script>
+
+
+
+<!-- Form step init -->
+<script src="./js/plugins-init/jquery-steps-init.js"></script>
+
+<!-- Daterangepicker -->
+<!-- momment js is must -->
+<script src="./vendor/moment/moment.min.js"></script>
+<script src="./vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- clockpicker -->
+<script src="./vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script>
+<!-- asColorPicker -->
+<script src="./vendor/jquery-asColor/jquery-asColor.min.js"></script>
+<script src="./vendor/jquery-asGradient/jquery-asGradient.min.js"></script>
+<script src="./vendor/jquery-asColorPicker/js/jquery-asColorPicker.min.js"></script>
+<!-- Material color picker -->
+<script src="./vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<!-- pickdate -->
+<script src="./vendor/pickadate/picker.js"></script>
+<script src="./vendor/pickadate/picker.time.js"></script>
+<script src="./vendor/pickadate/picker.date.js"></script>
+
+<!-- Daterangepicker -->
+<script src="./js/plugins-init/bs-daterange-picker-init.js"></script>
+
+<!-- select picker -->
+<script src="./vendor/select2/js/select2.full.min.js"></script>
+<script src="./js/plugins-init/select2-init.js"></script>
+</body>
+
+</html>

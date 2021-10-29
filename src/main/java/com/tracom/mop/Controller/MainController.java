@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+
 import java.util.List;
 
 
@@ -47,6 +49,14 @@ public class MainController {
     @GetMapping("/home")
     public String homePage() {
         return ("home");
+    }
+    @GetMapping("/profile")
+    public String profilePage() {
+        return ("profile");
+    }
+    @GetMapping("/calendar")
+    public String calendarPage() {
+        return ("calendar");
     }
 
 
@@ -98,5 +108,10 @@ public class MainController {
         organizationService.saveOrganization(organization);
         return "add_organization";
 
+    }
+
+    @GetMapping("/meetings")
+    public String meetingsPage() {
+        return ("meetings");
     }
 }
