@@ -30,7 +30,7 @@ public class Employee {
     @Column(nullable = false, length = 10)
     private String gender;
     @Column(nullable = false, length = 10)
-    private String roles;
+    private String category;
 
     //contact details
     @Column(nullable = false, length = 50, unique = true)
@@ -44,7 +44,7 @@ public class Employee {
     private String password;
 
 
-    //relationships
+    //****************Relationships*********************//
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "organization_id", nullable = false, referencedColumnName = "id")
     private Organization organization;
@@ -53,5 +53,14 @@ public class Employee {
     private Department department;
     @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Meeting> meetings = new ArrayList<>();
+
+    //Roles
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
 }

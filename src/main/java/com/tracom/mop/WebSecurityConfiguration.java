@@ -47,7 +47,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //Configure the login and log out for the application
             http.authorizeRequests()
-                .antMatchers("/login", "/register","/home", "/css/**","/js/**", "/images/**", "/vendor/**", "/assets/**").permitAll()
+                .antMatchers("/login","/home", "/css/**","/js/**", "/images/**", "/vendor/**", "/assets/**").permitAll()
                 .antMatchers("/admin/**")
                 .authenticated()
                 .and()
@@ -59,7 +59,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                                 .usernameParameter("email").passwordParameter("password")
                                 .failureUrl("/login?error=true")
                 )
-                .logout().logoutSuccessUrl("/logout").permitAll();
+                .logout().logoutSuccessUrl("/logout").permitAll()
+                    .and()
+                    .exceptionHandling().accessDeniedPage("/403");
     }
 
 }

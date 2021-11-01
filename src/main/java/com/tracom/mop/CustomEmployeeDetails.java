@@ -1,6 +1,7 @@
 package com.tracom.mop;
 
 import com.tracom.mop.Entity.Employee;
+import com.tracom.mop.Entity.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +20,14 @@ public class CustomEmployeeDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<Role> roles = employee.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+
+        return authorities;
     }
 
     @Override

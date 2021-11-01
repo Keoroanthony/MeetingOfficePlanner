@@ -11,7 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import java.util.List;
@@ -58,6 +61,10 @@ public class MainController {
     public String calendarPage() {
         return ("calendar");
     }
+    @GetMapping("/403")
+    public String accessDeniedPage() {
+        return ("error");
+    }
 
 
 
@@ -67,7 +74,7 @@ public class MainController {
     public String showUserList(Model model){
         List<Employee> listUsers =employeeService.listUsers();
         model.addAttribute("listUsers", listUsers);
-        return "add_users";
+        return "users";
 
     }
     @GetMapping("/add_user")
@@ -87,6 +94,7 @@ public class MainController {
         employeeService.saveUser(employee);
         return "add_users";
     }
+
 
 
 /********                  CRUD ORGANIZATION                           ********/
