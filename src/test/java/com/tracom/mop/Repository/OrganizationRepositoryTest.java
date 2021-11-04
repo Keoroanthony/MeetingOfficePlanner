@@ -20,7 +20,7 @@ class OrganizationRepositoryTest {
     public void testCreateOrganization() {
         Organization organization = new Organization();
         organization.setId(5);
-        organization.setName("skylab");
+        organization.setOrganization_name("skylab");
 
         Organization saveOrganization = organizationRepository.save(organization);
         Assertions.assertThat(saveOrganization).isNotNull();

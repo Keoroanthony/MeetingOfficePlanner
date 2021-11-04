@@ -29,7 +29,7 @@ public class Employee {
     private String employee_name;
     @Column(nullable = false, length = 10)
     private String gender;
-    @Column(nullable = false, length = 10)
+    @Column(length = 10)
     private String category;
 
     //contact details

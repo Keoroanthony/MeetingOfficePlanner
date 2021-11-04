@@ -1,163 +1,343 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="EN">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Meeting Office Planner</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-    <style type="text/css">
-
-
-    </style>
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Add user - MOP</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+<!-- Custom Stylesheet -->
+<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
 
-    <strong>Home/Add User/</strong> &nbsp; To add User
-
-    <a href="" data-toggle="modal" data-target="#exampleModal" >Click here</a>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-
-</div>
-<div class="form-group row" th:object="${user}">
-    <label class="col-form-label col-4">Organization</label>
-    <div class="col-8">
-        <select th:field="*{organization}" class="form-control" required>
-            <th:block  th:each="orgs : ${listOrganizations}">
-                <option th:text="${orgs.name}" th:value="${orgs.id}"/>
-            </th:block>
-        </select>
+<!--*******************
+    Preloader start
+********************-->
+<div id="preloader">
+    <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
     </div>
 </div>
+<!--*******************
+    Preloader end
+********************-->
 
 
+<!--**********************************
+    Main wrapper start
+***********************************-->
+<div id="main-wrapper">
 
+    <!--**********************************
+        Nav header start
+    ***********************************-->
+    <div class="nav-header">
+        <a href="index.html" class="brand-logo">
+            <img class="logo-abbr" src="./images/logo2.png" alt="">
+            <img class="brand-title" src="./images/logo1.png" alt="">
+        </a>
 
-
-<table>
-    <thead>
-        <tr>
-            <td>Id</td>
-            <td>Name</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="orgs : ${listOrganizations}">
-            <td th:value="${orgs.id}"/>
-            <td th:value="${orgs.name}"/>
-        </tr>
-    </tbody>
-</table>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <form style="max-width: 600px; margin: 0 auto;" th:action="@{/users/save}" th:object="${user}" method="post">
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Employee ID</label>
-                        <div class="col-8">
-                            <input type="number" class="form-control" th:field="*{id}" required/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Full Name</label>
-                        <div class="col-8">
-                            <input type="text" class="form-control" th:field="*{employee_name}" required/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Gender:</label>
-                        <div class="col-8">
-                            <select class="form-control">
-                                <option value="">**SELECT**</option>
-                                <option th:field="*{gender}" value="male">Male</option>
-                                <option th:field="*{gender}" value="female">Female</option>
-                                <option th:field="*{gender}" value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Category:</label>
-                        <div class="col-8">
-                            <select class="form-control">
-                                <option value="">**SELECT**</option>
-                                <option th:field="*{category}" value="admin">Admin</option>
-                                <option th:field="*{category}" value="org_officer">Organization officer</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Email:</label>
-                        <div class="col-8">
-                            <input type="text" class="form-control" th:field="*{email}" required/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Phone:</label>
-                        <div class="col-8">
-                            <input type="number" class="form-control" th:field="*{phone}" required/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Username:</label>
-                        <div class="col-8">
-                            <input type="text" class="form-control" th:field="*{username}" required/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Password:</label>
-                        <div class="col-8">
-                            <input type="text" class="form-control" th:field="*{password}" maxlength="20" minlength="4"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Organization</label>
-                        <div class="col-8">
-                            <select th:field="*{organization}" class="form-control" required>
-                                <th:block th:each="org : ${listOrganizations}">
-                                   <option th:text="org.name" th:value="org.id"></option>
-                                </th:block>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-4">Department</label>
-                        <div class="col-8">
-                            <select th:field="*{department}" class="form-control" required>
-                                <th:block th:each="department : ${departments}">
-                                    <option th:text="department.name" th:value="department.id"></option>
-                                </th:block>
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        <div class="nav-control">
+            <div class="hamburger">
+                <span class="line"></span><span class="line"></span><span class="line"></span>
             </div>
         </div>
     </div>
-</div>
+    <!--**********************************
+        Nav header end
+    ***********************************-->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--**********************************
+        Header start
+    ***********************************-->
+    <div class="header">
+        <div class="header-content">
+            <nav class="navbar navbar-expand">
+                <div class="collapse navbar-collapse justify-content-between">
+                    <div class="header-left">
+                        <div class="search_bar dropdown">
+                                <span class="search_icon p-3 c-pointer" data-toggle="dropdown">
+                                    <i class="fa fa-magnify"></i>
+                                </span>
+                            <div class="dropdown-menu p-0 m-0">
+                                <form>
+                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="navbar-nav header-right">
+                        <li class="nav-item dropdown notification_dropdown">
+                            <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                <i class="fa fa-bell"></i>
+                                <div class="pulse-css"></div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <ul class="list-unstyled">
+                                    <li class="media dropdown-item">
+                                        <span class="success"><i class="ti-user"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
+                                                </p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                    <li class="media dropdown-item">
+                                        <span class="primary"><i class="ti-shopping-cart"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                    <li class="media dropdown-item">
+                                        <span class="danger"><i class="ti-bookmark"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
+                                                </p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                    <li class="media dropdown-item">
+                                        <span class="primary"><i class="ti-heart"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                    <li class="media dropdown-item">
+                                        <span class="success"><i class="ti-image"></i></span>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
+                                                </p>
+                                            </a>
+                                        </div>
+                                        <span class="notify-time">3:20 am</span>
+                                    </li>
+                                </ul>
+                                <a class="all-notification" href="#">See all notifications <i
+                                        class="ti-arrow-right"></i></a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown header-profile">
+                            <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                <i class="fa fa-account"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="./app-profile.html" class="dropdown-item">
+                                    <i class="fa fa-user"></i>
+                                    <span class="ml-2">Profile </span>
+                                </a>
+                                <a href="./page-login.html" class="dropdown-item">
+                                    <i class="fa fa-key"></i>
+                                    <span class="ml-2">Logout </span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+    <!--**********************************
+        Sidebar start
+    ***********************************-->
+    <div class="quixnav">
+        <div class="quixnav-scroll">
+            <ul class="metismenu" id="menu">
+                <li class="nav-label first">Main Menu</li>
+                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
+                    <ul aria-expanded="false">
+                        <li><a th:href="@{/profile}">Profile</a></li>
+                    </ul>
+                </li>
+                <li class="nav-label">Apps</li>
+                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
+                    <ul aria-expanded="false">
+                        <li><a th:href="@{/calendar}">Calendar</a></li>
+                    </ul>
+                </li>
+                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-world-2"></i><span class="nav-text">View</span></a>
+                    <ul aria-expanded="false">
+                        <li><a th:href="@{/meetings}">Meetings</a></li>
+                        <li><a th:href="@{/users}">Users</a></li>
+                    </ul>
+                </li>
+                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-single-copy-06"></i><span class="nav-text">Actions</span></a>
+                    <ul aria-expanded="false">
+                        <li><a href="./page-register.html">LogOut</a></li>
+                        <li><a href="./page-lock-screen.html">Lock Screen</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+    <!--**********************************
+        Sidebar end
+    ***********************************-->
+    <!--**********************************
+           Content body start
+       ***********************************-->
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Hi, welcome back!</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Users</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Add users</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Add Users Form</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="basic-form">
+                                <form th:action="@{/save_user}" method="post"
+                                      th:object="${user}">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Full Name</label>
+                                            <input type="text" class="form-control" placeholder="John Doe" th:name="*{employee_name}">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" placeholder="example@gmail.com" th:name="*{email}">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" placeholder="*******" th:name="*{password}">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Roles</label>
+                                            <select id="roles" class="form-control" th:name="*{roles}">
+                                                <option value="" selected>Choose...</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="user">User</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label>Organization</label>
+                                            <select id="Organization" class="form-control" th:name="*{organization}">
+                                                <option value="" selected>Choose...</option>
+                                                <option value="1">Option 1</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Department</label>
+                                            <select id="Department" class="form-control" th:name="*{department}">
+                                                <option value="" selected>Choose...</option>
+                                                <option value="finance">Finance</option>
+                                                <option value="IT">Information Technology</option>
+                                                <option value="administration">Administration</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Phone</label>
+                                            <input type="number" class="form-control" th:name="*{phone}">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Gender</label>
+                                            <select id="inputState" class="form-control" th:name="*{gender}">
+                                                <option value="" selected>Choose...</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label>Category</label>
+                                            <input type="text" class="form-control" th:name="*{category}">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+
+
+    <!--**********************************
+         Footer start
+     ***********************************-->
+    <div class="footer">
+        <div class="copyright">
+            <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Anthony Keoro</a> 2021</p>
+            <p>Distributed by <a href="https://tracom.co.ke/" target="_blank">Tracom Services Limited</a></p>
+        </div>
+    </div>
+    <!--**********************************
+        Footer end
+    ***********************************-->
+
+    <!--**********************************
+       Support ticket button start
+    ***********************************-->
+
+    <!--**********************************
+       Support ticket button end
+    ***********************************-->
+
+
+</div>
+<!--**********************************
+    Main wrapper end
+***********************************-->
+
+<!--**********************************
+    Scripts
+***********************************-->
+<!-- Required vendors -->
+<script src="vendor/global/global.min.js"></script>
+<script src="js/quixnav-init.js"></script>
+<script src="js/custom.min.js"></script>
+
 </body>
+
 </html>

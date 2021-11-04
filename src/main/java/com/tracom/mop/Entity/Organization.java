@@ -17,11 +17,11 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false, length = 50)
-    private String name;
+    private String organization_name;
 
-    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "organization")
     private List<Department> department = new ArrayList<>();
-    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "organization")
     private List<Employee> employees = new ArrayList<>();
 
 }

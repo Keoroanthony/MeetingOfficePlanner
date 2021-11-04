@@ -82,11 +82,11 @@ public class MainController {
         List<Organization> organizations = organizationService.listOrganization();
         List<Department> departments = departmentService.listDepartment();
         model.addAttribute("user", new Employee());
-        model.addAttribute("listOrganizations", organizations);
+        model.addAttribute("organizations", organizations);
         model.addAttribute("departments", departments);
         return "add_users";
     }
-    @PostMapping("/users/save")
+    @PostMapping("/users_save")
     public String saveUser(Employee employee){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(employee.getPassword());
@@ -94,10 +94,27 @@ public class MainController {
         employeeService.saveUser(employee);
         return "add_users";
     }
+    @RequestMapping("/edit_user/{id}")
+    public ModelAndView showCreateUser(@PathVariable(name = "id") int id){
+
+        ModelAndView mnv = new ModelAndView("users");
+
+        //User object
+        Employee employee = employeeService.updateUser(id);
+        mnv.addObject("createUser", employee);
+
+        return mnv;
+    }
+
+    @RequestMapping("/delete_user/{id}")
+    public String deleteService(@PathVariable(name = "id") int id) {
+        employeeService.deleteUser(id);
+        return "users";
+    }
 
 
 
-/********                  CRUD ORGANIZATION                           ********/
+    /********                  CRUD ORGANIZATION                           ********/
 
     @GetMapping("/organization")
     public String showOrganizationList(Model model){
@@ -117,7 +134,28 @@ public class MainController {
         return "add_organization";
 
     }
+    /********                  CRUD DEPARTMENT                           ********/
+    @GetMapping("/department")
+    public String showDepartmentList(Model model){
+        List<Department> departmentList =departmentService.listDepartment();
+        model.addAttribute("departmentList", departmentList);
+        return "add_department";
 
+    }
+    @GetMapping("/add_department")
+    public String showNewDepartment(Model model){
+        model.addAttribute("department", new Department());
+        List<Organization> organizationList = organizationService.listOrganization();
+        model.addAttribute("organizations", organizationList);
+        return "add_department";
+    }
+    @PostMapping("/department/save")
+    public String saveDepartment(Department department) {
+        departmentService.saveDepartment(department);
+        return "add_department";
+    }
+
+    /********                  CRUD MEETINGS                           ********/
     @GetMapping("/meetings")
     public String meetingsPage() {
         return ("meetings");

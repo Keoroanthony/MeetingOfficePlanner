@@ -4,18 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Users - MOP </title>
+    <title>Add Department - MOP</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <!-- Datatable -->
-    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
 <!--*******************
-Preloader start
+    Preloader start
 ********************-->
 <div id="preloader">
     <div class="sk-three-bounce">
@@ -38,7 +35,7 @@ Preloader start
         Nav header start
     ***********************************-->
     <div class="nav-header">
-        <a href="" class="brand-logo">
+        <a href="index.html" class="brand-logo">
             <img class="logo-abbr" src="./images/logo2.png" alt="">
             <img class="brand-title" src="./images/logo1.png" alt="">
         </a>
@@ -200,10 +197,9 @@ Preloader start
     <!--**********************************
         Sidebar end
     ***********************************-->
-
     <!--**********************************
-        Content body start
-    ***********************************-->
+           Content body start
+       ***********************************-->
     <div class="content-body">
         <div class="container-fluid">
             <div class="row page-titles mx-0">
@@ -215,67 +211,36 @@ Preloader start
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Users</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Users</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Add Department</a></li>
                     </ol>
                 </div>
             </div>
             <!-- row -->
-
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Datatable</h4>
+                            <h4 class="card-title">Add Department Form</h4>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example2" class="display" style="width:100%">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="user: ${listUsers}">
-                                        <td th:text="${user.id}">ID</td>
-                                        <td th:text="${user.employee_name}">Name</td>
-                                        <td th:text="${user.email}">Email</td>
-                                        <td th:text="${user.phone}">Phone</td>
-                                        <td th:text="${user.category}">Role</td>
-                                        <td>
-                                            <a th:href="@{'/edit_user/' + ${user.id}}">
-                                                <button class="btn btn-info">Edit <i class='fa fa-eye'></i></button>
-                                            </a>
-                                            &nbsp;
-                                            <a th:href="@{'/delete_user/' +${user.id}}"
-                                               onclick="return confirm('Are you sure you want to delete the User?')">
-                                                <button class="btn btn-danger">Delete <i class='fa fa-trash-alt'></i></button>
-                                            </a>
-                                        </td>
-
-                                    </tr>
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-                                <br>
-                                <a class="btn btn-info" th:href="@{/add_user}">Add Users<i class='fa fa-plus'></i></a>
-                                <a class="btn btn-info" th:href="@{/add_organization}">Add Organization<i class='fa fa-plus'></i></a>
-                                <a class="btn btn-info" th:href="@{/add_department}">Add Department<i class='fa fa-plus'></i></a>
+                            <div class="basic-form">
+                             <form th:action="@{/department/save}" method="post" th:object="${department}">
+                                 <div class="form-row">
+                                     <div class="form-group col-md-6">
+                                         <label>Department Name</label>
+                                         <input type="text" class="form-control" th:field="*{department_name}" required/>
+                                     </div>
+                                     <div class="form-group col-md-6">
+                                         <label>Organization</label>
+                                         <select id="roles" class="form-control" th:field="*{organization}">
+                                             <option value="0">Choose**</option>
+                                             <option th:each="organization : ${organizations}" th:value="${organization.id}" th:text="${organization.organization_name}"></option>
+                                         </select>
+                                     </div>
+                                 </div>
+                                 <button type="submit" class="btn btn-primary">Register</button>
+                             </form>
                             </div>
                         </div>
                     </div>
@@ -289,8 +254,8 @@ Preloader start
 
 
     <!--**********************************
-       Footer start
-   ***********************************-->
+         Footer start
+     ***********************************-->
     <div class="footer">
         <div class="copyright">
             <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Anthony Keoro</a> 2021</p>
@@ -322,12 +287,6 @@ Preloader start
 <script src="vendor/global/global.min.js"></script>
 <script src="js/quixnav-init.js"></script>
 <script src="js/custom.min.js"></script>
-
-
-
-<!-- Datatable -->
-<script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="js/plugins-init/datatables.init.js"></script>
 
 </body>
 
