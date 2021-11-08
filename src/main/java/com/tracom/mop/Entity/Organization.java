@@ -1,17 +1,11 @@
 package com.tracom.mop.Entity;
 
-import lombok.*;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Entity
-@Table(name = "organisation")
+@Table(name = "organization")
 public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,9 +13,52 @@ public class Organization {
     @Column(nullable = false, length = 50)
     private String organization_name;
 
-    @OneToMany(mappedBy = "organization")
+    //******Associated Entities**********//
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy = "organization")
     private List<Department> department = new ArrayList<>();
-    @OneToMany(mappedBy = "organization")
-    private List<Employee> employees = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy = "organization")
+    private List<Employee> employeeList = new ArrayList<>();
 
+    public Organization() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOrganization_name() {
+        return organization_name;
+    }
+
+    public void setOrganization_name(String organization_name) {
+        this.organization_name = organization_name;
+    }
+
+    public List<Department> getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(List<Department> department) {
+        this.department = department;
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "id=" + id +
+                ", organization_name='" + organization_name + '\'' +
+                '}';
+    }
 }

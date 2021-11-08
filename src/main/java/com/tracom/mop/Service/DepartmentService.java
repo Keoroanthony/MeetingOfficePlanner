@@ -4,16 +4,20 @@ import com.tracom.mop.Entity.Department;
 import com.tracom.mop.Repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class DepartmentService {
+
     private DepartmentRepository departmentRepository;
+
     @Autowired
     public DepartmentService(DepartmentRepository departmentRepository){
         this.departmentRepository = departmentRepository;
     }
+
     //CREATE
     public void saveDepartment(Department department){
         departmentRepository.save(department);

@@ -3,9 +3,11 @@ package com.tracom.mop.Controller;
 import com.tracom.mop.Entity.Department;
 import com.tracom.mop.Entity.Employee;
 import com.tracom.mop.Entity.Organization;
+import com.tracom.mop.Entity.Role;
 import com.tracom.mop.Service.DepartmentService;
 import com.tracom.mop.Service.EmployeeService;
 import com.tracom.mop.Service.OrganizationService;
+import com.tracom.mop.Service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -26,12 +28,17 @@ public class MainController {
     private EmployeeService employeeService;
     private OrganizationService organizationService;
     private DepartmentService departmentService;
+    private RoleService roleService;
 
     @Autowired
-    public MainController(EmployeeService employeeService, OrganizationService organizationService, DepartmentService departmentService){
+    public MainController(EmployeeService employeeService,
+                          OrganizationService organizationService,
+                          DepartmentService departmentService,
+                          RoleService roleService){
         this.employeeService = employeeService;
         this.organizationService = organizationService;
         this.departmentService = departmentService;
+        this.roleService = roleService;
     }
 
 
@@ -61,10 +68,6 @@ public class MainController {
     public String calendarPage() {
         return ("calendar");
     }
-    @GetMapping("/403")
-    public String accessDeniedPage() {
-        return ("error");
-    }
 
 
 
@@ -79,11 +82,13 @@ public class MainController {
     }
     @GetMapping("/add_user")
     public String addUser(Model model){
-        List<Organization> organizations = organizationService.listOrganization();
-        List<Department> departments = departmentService.listDepartment();
+        List<Organization> organizationList = organizationService.listOrganization();
+        List<Department> departmentList = departmentService.listDepartment();
+        List<Role> roleList = roleService.listRoles();
         model.addAttribute("user", new Employee());
-        model.addAttribute("organizations", organizations);
-        model.addAttribute("departments", departments);
+        model.addAttribute("organizations", organizationList);
+        model.addAttribute("departments", departmentList);
+        model.addAttribute("roles", roleList);
         return "add_users";
     }
     @PostMapping("/users_save")
@@ -92,16 +97,16 @@ public class MainController {
         String encodedPassword = passwordEncoder.encode(employee.getPassword());
         employee.setPassword(encodedPassword);
         employeeService.saveUser(employee);
-        return "add_users";
+        return "redirect:/users";
     }
     @RequestMapping("/edit_user/{id}")
     public ModelAndView showCreateUser(@PathVariable(name = "id") int id){
 
-        ModelAndView mnv = new ModelAndView("users");
+        ModelAndView mnv = new ModelAndView("edit_user");
 
         //User object
         Employee employee = employeeService.updateUser(id);
-        mnv.addObject("createUser", employee);
+        mnv.addObject("editUser", employee);
 
         return mnv;
     }
@@ -109,7 +114,7 @@ public class MainController {
     @RequestMapping("/delete_user/{id}")
     public String deleteService(@PathVariable(name = "id") int id) {
         employeeService.deleteUser(id);
-        return "users";
+        return "redirect:/users";
     }
 
 
@@ -140,7 +145,6 @@ public class MainController {
         List<Department> departmentList =departmentService.listDepartment();
         model.addAttribute("departmentList", departmentList);
         return "add_department";
-
     }
     @GetMapping("/add_department")
     public String showNewDepartment(Model model){
@@ -149,7 +153,7 @@ public class MainController {
         model.addAttribute("organizations", organizationList);
         return "add_department";
     }
-    @PostMapping("/department/save")
+    @PostMapping("/department_save")
     public String saveDepartment(Department department) {
         departmentService.saveDepartment(department);
         return "add_department";

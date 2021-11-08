@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="EN">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Add user - MOP</title>
-<!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-<!-- Custom Stylesheet -->
-<link href="css/style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Add Users - MOP</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
 </head>
 <body>
-
 <!--*******************
     Preloader start
 ********************-->
@@ -36,7 +36,7 @@
         Nav header start
     ***********************************-->
     <div class="nav-header">
-        <a href="index.html" class="brand-logo">
+        <a th:href="@{/home}" class="brand-logo">
             <img class="logo-abbr" src="./images/logo2.png" alt="">
             <img class="brand-title" src="./images/logo1.png" alt="">
         </a>
@@ -61,7 +61,7 @@
                     <div class="header-left">
                         <div class="search_bar dropdown">
                                 <span class="search_icon p-3 c-pointer" data-toggle="dropdown">
-                                    <i class="fa fa-magnify"></i>
+                                    <i class="fa fa-search"></i>
                                 </span>
                             <div class="dropdown-menu p-0 m-0">
                                 <form>
@@ -80,7 +80,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="list-unstyled">
                                     <li class="media dropdown-item">
-                                        <span class="success"><i class="ti-user"></i></span>
+                                        <span class="success"><i class="fa fa-user"></i></span>
                                         <div class="media-body">
                                             <a href="#">
                                                 <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
@@ -90,7 +90,7 @@
                                         <span class="notify-time">3:20 am</span>
                                     </li>
                                     <li class="media dropdown-item">
-                                        <span class="primary"><i class="ti-shopping-cart"></i></span>
+                                        <span class="primary"><i class="fa fa-shopping-cart"></i></span>
                                         <div class="media-body">
                                             <a href="#">
                                                 <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
@@ -99,7 +99,7 @@
                                         <span class="notify-time">3:20 am</span>
                                     </li>
                                     <li class="media dropdown-item">
-                                        <span class="danger"><i class="ti-bookmark"></i></span>
+                                        <span class="danger"><i class="fa fa-bookmark"></i></span>
                                         <div class="media-body">
                                             <a href="#">
                                                 <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
@@ -109,7 +109,7 @@
                                         <span class="notify-time">3:20 am</span>
                                     </li>
                                     <li class="media dropdown-item">
-                                        <span class="primary"><i class="ti-heart"></i></span>
+                                        <span class="primary"><i class="fa fa-heart"></i></span>
                                         <div class="media-body">
                                             <a href="#">
                                                 <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
@@ -118,7 +118,7 @@
                                         <span class="notify-time">3:20 am</span>
                                     </li>
                                     <li class="media dropdown-item">
-                                        <span class="success"><i class="ti-image"></i></span>
+                                        <span class="success"><i class="fa fa-image"></i></span>
                                         <div class="media-body">
                                             <a href="#">
                                                 <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
@@ -134,14 +134,14 @@
                         </li>
                         <li class="nav-item dropdown header-profile">
                             <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                <i class="fa fa-account"></i>
+                                <i class="fas fa-user-alt"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./app-profile.html" class="dropdown-item">
+                                <a th:href="@{/profile}" class="dropdown-item">
                                     <i class="fa fa-user"></i>
                                     <span class="ml-2">Profile </span>
                                 </a>
-                                <a href="./page-login.html" class="dropdown-item">
+                                <a th:href="@{/logout}" class="dropdown-item">
                                     <i class="fa fa-key"></i>
                                     <span class="ml-2">Logout </span>
                                 </a>
@@ -163,31 +163,29 @@
         <div class="quixnav-scroll">
             <ul class="metismenu" id="menu">
                 <li class="nav-label first">Main Menu</li>
-                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
-                    <ul aria-expanded="false">
-                        <li><a th:href="@{/profile}">Profile</a></li>
-                    </ul>
+                <li><a href="javascript:void()" aria-expanded="false">
+                    <i class="fas fa-bars"></i><span class="nav-text">Dashboard</span></a>
                 </li>
                 <li class="nav-label">Apps</li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
+                        class="fab fa-app-store"></i><span class="nav-text">Apps</span></a>
                     <ul aria-expanded="false">
                         <li><a th:href="@{/calendar}">Calendar</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-world-2"></i><span class="nav-text">View</span></a>
+                        class="fas fa-globe"></i><span class="nav-text">View</span></a>
                     <ul aria-expanded="false">
                         <li><a th:href="@{/meetings}">Meetings</a></li>
                         <li><a th:href="@{/users}">Users</a></li>
+                        <li><a th:href="@{/profile}">Profile</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-single-copy-06"></i><span class="nav-text">Actions</span></a>
+                        class="fas fa-radiation-alt"></i><span class="nav-text">Actions</span></a>
                     <ul aria-expanded="false">
-                        <li><a href="./page-register.html">LogOut</a></li>
-                        <li><a href="./page-lock-screen.html">Lock Screen</a></li>
+                        <li><a th:href="@{/logout}">Logout</a></li>
+                        <li><a th:href="@{/login}">Lock Screen</a></li>
                     </ul>
                 </li>
             </ul>
@@ -212,8 +210,8 @@
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Users</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Add users</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/users}">Users</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Add User</a></li>
                     </ol>
                 </div>
             </div>
@@ -222,71 +220,59 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Add Users Form</h4>
+                            <h4 class="card-title">Add User Form</h4>
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form th:action="@{/save_user}" method="post"
-                                      th:object="${user}">
+                                <form th:action="@{/users_save}" method="post" th:object="${user}">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label>Full Name</label>
-                                            <input type="text" class="form-control" placeholder="John Doe" th:name="*{employee_name}">
+                                            <input type="text" class="form-control" th:field="*{employee_name}" placeholder="John Doe" required/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Email</label>
-                                            <input type="email" class="form-control" placeholder="example@gmail.com" th:name="*{email}">
+                                            <input type="email" class="form-control" placeholder="example@gmail.com" th:field="*{email}" required/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Password</label>
-                                            <input type="password" class="form-control" placeholder="*******" th:name="*{password}">
+                                            <input type="password" class="form-control" placeholder="*******" th:field="*{password}" required/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Roles</label>
-                                            <select id="roles" class="form-control" th:name="*{roles}">
-                                                <option value="" selected>Choose...</option>
-                                                <option value="admin">Admin</option>
-                                                <option value="user">User</option>
+                                            <select id="roles" class="form-control" th:field="*{roles}">
+                                                <option value="0">Choose**</option>
+                                                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label>Organization</label>
-                                            <select id="Organization" class="form-control" th:name="*{organization}">
-                                                <option value="" selected>Choose...</option>
-                                                <option value="1">Option 1</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
+                                            <select id="organization" class="form-control" th:field="*{organization}">
+                                                <option value="0">Choose**</option>
+                                                <option th:each="organization : ${organizations}" th:value="${organization.id}" th:text="${organization.organization_name}"></option>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label>Department</label>
-                                            <select id="Department" class="form-control" th:name="*{department}">
-                                                <option value="" selected>Choose...</option>
-                                                <option value="finance">Finance</option>
-                                                <option value="IT">Information Technology</option>
-                                                <option value="administration">Administration</option>
+                                            <select id="department" class="form-control" th:field="*{department}">
+                                                <option value="0">Choose**</option>
+                                                <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.department_name}"></option>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Phone</label>
-                                            <input type="number" class="form-control" th:name="*{phone}">
+                                            <input type="number" class="form-control" th:field="*{phone}">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label>Gender</label>
-                                            <select id="inputState" class="form-control" th:name="*{gender}">
-                                                <option value="" selected>Choose...</option>
+                                            <select id="inputState" class="form-control" th:field="*{gender}">
+                                                <option value="0" selected>Choose...</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
                                                 <option value="other">Other</option>
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label>Category</label>
-                                            <input type="text" class="form-control" th:name="*{category}">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Register</button>
