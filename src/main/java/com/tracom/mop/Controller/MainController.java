@@ -68,6 +68,10 @@ public class MainController {
     public String calendarPage() {
         return ("calendar");
     }
+    @GetMapping("/403")
+    public String accessDeniedPage() {
+        return ("error_403");
+    }
 
 
 
