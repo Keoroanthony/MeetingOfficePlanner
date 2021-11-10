@@ -45,7 +45,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //Configure the login and log out for the application
             http.authorizeRequests()
                 .antMatchers("/login","/home", "/css/**","/js/**", "/images/**", "/vendor/**", "/assets/**").permitAll()
-                .antMatchers("/delete_user/**").hasAnyAuthority("admin")
+                    .antMatchers("/edit_user/**").hasAnyAuthority("admin", "user")
+                .antMatchers("/delete_user/**").hasAuthority("admin")
                 .and()
                 .formLogin(
                         form -> form

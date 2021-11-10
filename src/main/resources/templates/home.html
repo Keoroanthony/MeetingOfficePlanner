@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<html xmlns:th="http://www.thymeleaf.org" lang="EN"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Home - MOP</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo2.png">
     <link rel="stylesheet" href="vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="vendor/owl-carousel/css/owl.theme.default.min.css">
     <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
@@ -180,7 +181,7 @@
                         class="fas fa-globe"></i><span class="nav-text">View</span></a>
                     <ul aria-expanded="false">
                         <li><a th:href="@{/meetings}">Meetings</a></li>
-                        <li><a th:href="@{/users}">Users</a></li>
+                        <li sec:authorize="hasAuthority('admin')"><a th:href="@{/users}">Users</a></li>
                         <li><a th:href="@{/profile}">Profile</a></li>
                     </ul>
                 </li>

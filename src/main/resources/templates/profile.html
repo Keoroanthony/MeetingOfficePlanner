@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Profile - Meeting Office Planner </title>
+    <title>Profile - MOP </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
-    <link href="./css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo2.png">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
 
 </head>
@@ -180,7 +180,7 @@
                         class="fas fa-globe"></i><span class="nav-text">View</span></a>
                     <ul aria-expanded="false">
                         <li><a th:href="@{/meetings}">Meetings</a></li>
-                        <li><a th:href="@{/users}">Users</a></li>
+                        <li sec:authorize="hasAuthority('admin')"><a th:href="@{/users}">Users</a></li>
                         <li><a th:href="@{/profile}">Profile</a></li>
                     </ul>
                 </li>
@@ -584,9 +584,9 @@
     Scripts
 ***********************************-->
 <!-- Required vendors -->
-<script src="./vendor/global/global.min.js"></script>
-<script src="./js/quixnav-init.js"></script>
-<script src="./js/custom.min.js"></script>
+<script src="vendor/global/global.min.js"></script>
+<script src="js/quixnav-init.js"></script>
+<script src="js/custom.min.js"></script>
 
 
 </body>

@@ -1,29 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<html xmlns:th="http://www.thymeleaf.org" lang="EN"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Meetings - Meeting Office Planner </title>
+    <title>Meetings - MOP </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo2.png">
     <!-- Form step -->
-    <link href="./vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
+    <link href="vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
     <!-- Daterange picker -->
-    <link href="./vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- Clockpicker -->
-    <link href="./vendor/clockpicker/css/bootstrap-clockpicker.min.css" rel="stylesheet">
+    <link href="vendor/clockpicker/css/bootstrap-clockpicker.min.css" rel="stylesheet">
     <!-- asColorpicker -->
-    <link href="./vendor/jquery-asColorPicker/css/asColorPicker.min.css" rel="stylesheet">
+    <link href="vendor/jquery-asColorPicker/css/asColorPicker.min.css" rel="stylesheet">
     <!-- Material color picker -->
-    <link href="./vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
     <!-- Pick date -->
-    <link rel="stylesheet" href="./vendor/pickadate/themes/default.css">
-    <link rel="stylesheet" href="./vendor/pickadate/themes/default.date.css">
+    <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
+    <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
     <!--select picker-->
-    <link rel="stylesheet" href="./vendor/select2/css/select2.min.css">
+    <link rel="stylesheet" href="vendor/select2/css/select2.min.css">
     <!-- Custom Stylesheet -->
-    <link href="./css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
 
 </head>
@@ -192,7 +193,7 @@
                         class="fas fa-globe"></i><span class="nav-text">View</span></a>
                     <ul aria-expanded="false">
                         <li><a th:href="@{/meetings}">Meetings</a></li>
-                        <li><a th:href="@{/users}">Users</a></li>
+                        <li sec:authorize="hasAuthority('admin')"><a th:href="@{/users}">Users</a></li>
                         <li><a th:href="@{/profile}">Profile</a></li>
                     </ul>
                 </li>
@@ -367,45 +368,45 @@
     Scripts
 ***********************************-->
 <!-- Required vendors -->
-<script src="./vendor/global/global.min.js"></script>
-<script src="./js/quixnav-init.js"></script>
-<script src="./js/custom.min.js"></script>
+<script src="vendor/global/global.min.js"></script>
+<script src="js/quixnav-init.js"></script>
+<script src="js/custom.min.js"></script>
 
 
 
-<script src="./vendor/jquery-steps/build/jquery.steps.min.js"></script>
-<script src="./vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="vendor/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
 <!-- Form validate init -->
-<script src="./js/plugins-init/jquery.validate-init.js"></script>
+<script src="js/plugins-init/jquery.validate-init.js"></script>
 
 
 
 <!-- Form step init -->
-<script src="./js/plugins-init/jquery-steps-init.js"></script>
+<script src="js/plugins-init/jquery-steps-init.js"></script>
 
 <!-- Daterangepicker -->
 <!-- momment js is must -->
-<script src="./vendor/moment/moment.min.js"></script>
-<script src="./vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="vendor/moment/moment.min.js"></script>
+<script src="vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- clockpicker -->
-<script src="./vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script>
+<script src="vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script>
 <!-- asColorPicker -->
-<script src="./vendor/jquery-asColor/jquery-asColor.min.js"></script>
-<script src="./vendor/jquery-asGradient/jquery-asGradient.min.js"></script>
-<script src="./vendor/jquery-asColorPicker/js/jquery-asColorPicker.min.js"></script>
+<script src="vendor/jquery-asColor/jquery-asColor.min.js"></script>
+<script src="vendor/jquery-asGradient/jquery-asGradient.min.js"></script>
+<script src="vendor/jquery-asColorPicker/js/jquery-asColorPicker.min.js"></script>
 <!-- Material color picker -->
-<script src="./vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<script src="vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 <!-- pickdate -->
-<script src="./vendor/pickadate/picker.js"></script>
-<script src="./vendor/pickadate/picker.time.js"></script>
-<script src="./vendor/pickadate/picker.date.js"></script>
+<script src="vendor/pickadate/picker.js"></script>
+<script src="vendor/pickadate/picker.time.js"></script>
+<script src="vendor/pickadate/picker.date.js"></script>
 
 <!-- Daterangepicker -->
-<script src="./js/plugins-init/bs-daterange-picker-init.js"></script>
+<script src="js/plugins-init/bs-daterange-picker-init.js"></script>
 
 <!-- select picker -->
-<script src="./vendor/select2/js/select2.full.min.js"></script>
-<script src="./js/plugins-init/select2-init.js"></script>
+<script src="vendor/select2/js/select2.full.min.js"></script>
+<script src="js/plugins-init/select2-init.js"></script>
 </body>
 
 </html>
