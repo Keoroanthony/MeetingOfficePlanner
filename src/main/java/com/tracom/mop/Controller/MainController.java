@@ -100,6 +100,7 @@ public class MainController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(employee.getPassword());
         employee.setPassword(encodedPassword);
+        employee.setEnabled(true);
         employeeService.saveUser(employee);
         return "redirect:/users";
     }

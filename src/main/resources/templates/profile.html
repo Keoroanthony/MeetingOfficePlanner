@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="EN" class="h-100">
+<html xmlns:th="http://www.thymeleaf.org" lang="EN" class="h-100"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -206,8 +207,11 @@
         <div class="container-fluid">
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
-                    <div class="welcome-text">
-                        <h4>Hi, welcome back!</h4>
+                    <div class="welcome-text" sec:authorize="isAuthenticated()">
+                        <h4>Welcome <b><span sec:authentication="name">Username</span></b>
+                            &nbsp;
+                            <i><span sec:authentication="principal.authorities">Roles</span></i>
+                        </h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">

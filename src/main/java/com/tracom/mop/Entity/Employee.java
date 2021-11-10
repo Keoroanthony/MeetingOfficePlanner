@@ -21,6 +21,7 @@ public class Employee {
     private String phone;
     @Column(nullable = false)
     private String password;
+    private boolean enabled;
 
     //******Associated Entities**********//
     @ManyToOne(fetch = FetchType.LAZY)
@@ -89,6 +90,14 @@ public class Employee {
         this.password = password;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public Organization getOrganization() {
         return organization;
     }
@@ -122,6 +131,7 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
+                ", enabled=" + enabled +
                 '}';
     }
 }

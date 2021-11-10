@@ -16,11 +16,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private DataSource dataSource;
-
     @Bean
-    @Override
     public UserDetailsService userDetailsService() {
         return new CustomEmployeeDetailsService();
     }
@@ -49,7 +45,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //Configure the login and log out for the application
             http.authorizeRequests()
                 .antMatchers("/login","/home", "/css/**","/js/**", "/images/**", "/vendor/**", "/assets/**").permitAll()
-//                .antMatchers("/edit_user/**", "/delet_user/**").hasRole("admin")
+                .antMatchers("/delete_user/**").hasAnyAuthority("admin")
                 .and()
                 .formLogin(
                         form -> form

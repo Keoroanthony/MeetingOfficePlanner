@@ -57,10 +57,7 @@ public class CustomEmployeeDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.employee.isEnabled();
     }
 
-    public Employee getUser() {
-        return this.employee;
-    }
 }
