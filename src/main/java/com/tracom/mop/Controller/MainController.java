@@ -1,5 +1,6 @@
 package com.tracom.mop.Controller;
 
+import com.tracom.mop.CustomEmployeeDetails;
 import com.tracom.mop.Entity.Department;
 import com.tracom.mop.Entity.Employee;
 import com.tracom.mop.Entity.Organization;
@@ -9,14 +10,13 @@ import com.tracom.mop.Service.EmployeeService;
 import com.tracom.mop.Service.OrganizationService;
 import com.tracom.mop.Service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.List;
@@ -57,12 +57,12 @@ public class MainController {
         return ("index");
     }
     @GetMapping("/home")
-    public String homePage() {
+    public String homePage(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model) {
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+
+        model.addAttribute("loggedUser", employee);
         return ("home");
-    }
-    @GetMapping("/profile")
-    public String profilePage() {
-        return ("profile");
     }
     @GetMapping("/calendar")
     public String calendarPage() {
@@ -115,7 +115,30 @@ public class MainController {
 
         return mnv;
     }
+    @GetMapping( "/profile")
+    public String profilePage(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model) {
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
 
+        model.addAttribute("loggedUser", employee);
+        return "profile";
+    }
+    @PostMapping(path = "/edit_profile/update")
+    public String updateUserProfile(@AuthenticationPrincipal CustomEmployeeDetails loggedUser,
+                                    @RequestParam(value = "Id", required = false) int Id,
+                                    @RequestParam(value = "employee_name", required = false) String employee_name,
+                                    @RequestParam(value = "password", required = false) String password,
+                                    @RequestParam(value = "phone", required = false) String phone,
+                                    Employee employee,
+                                    RedirectAttributes redirectAttributes){
+
+        //Perform update
+        employeeService.updateUserDetails(Id, employee_name, password, phone);
+
+        //Set current loggedIn user details on top.
+       loggedUser.setEmployeeName(employee_name);
+        return "redirect:/profile";
+    }
     @RequestMapping("/delete_user/{id}")
     public String deleteService(@PathVariable(name = "id") int id) {
         employeeService.deleteUser(id);

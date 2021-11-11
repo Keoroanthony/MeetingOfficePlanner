@@ -59,5 +59,12 @@ public class CustomEmployeeDetails implements UserDetails {
     public boolean isEnabled() {
         return this.employee.isEnabled();
     }
+    //Update Current LoggedIn user
+    public void setEmployeeName(String employee_name){
+        this.employee.setEmployee_name(employee_name);
+    }
+    public void setEmail(String email){
+        this.employee.setEmail(email);
+    }
 
 }

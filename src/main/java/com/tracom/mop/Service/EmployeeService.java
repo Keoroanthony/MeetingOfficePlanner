@@ -23,6 +23,9 @@ public class EmployeeService {
     }
 
     //RETRIEVE
+    public Employee getUserByEmail(String email) {
+        return employeeRepository.findByEmail(email);
+    }
     public List<Employee> listUsers(){
         return employeeRepository.findAll();
     }
@@ -33,6 +36,12 @@ public class EmployeeService {
     }
 
     //UPDATE
+    public void updateUserDetails(int Id,
+                                  String employee_name,
+                                  String password,
+                                  String phone){
+        employeeRepository.updateUserDetails(Id, employee_name, password,phone);
+    }
     public Employee updateUser(int id){
         return employeeRepository.findById(id).get();
     }
