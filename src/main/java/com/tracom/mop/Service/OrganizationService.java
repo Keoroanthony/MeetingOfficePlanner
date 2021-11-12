@@ -32,7 +32,7 @@ public class OrganizationService {
     }
 
     //UPDATE
-//    public Organization updateOrganization(int id){
-//        return organizationRepository.findById(id).get();
-//    }
+    public Organization updateOrganization(int id){
+        return organizationRepository.findById(id);
+    }
 }

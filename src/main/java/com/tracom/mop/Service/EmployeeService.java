@@ -29,6 +29,9 @@ public class EmployeeService {
     public List<Employee> listUsers(){
         return employeeRepository.findAll();
     }
+    public List<Employee> getAllEmailByOrganization(int id) {
+        return employeeRepository.findAllEmailByOrganization(id);
+    }
 
     // DELETE
     public void deleteUser(int id){
@@ -38,9 +41,8 @@ public class EmployeeService {
     //UPDATE
     public void updateUserDetails(int Id,
                                   String employee_name,
-                                  String password,
                                   String phone){
-        employeeRepository.updateUserDetails(Id, employee_name, password,phone);
+        employeeRepository.updateUserDetails(Id, employee_name,phone);
     }
     public Employee updateUser(int id){
         return employeeRepository.findById(id).get();

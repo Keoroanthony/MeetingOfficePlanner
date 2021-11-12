@@ -351,41 +351,41 @@
                                                         <div class="form-row">
                                                             <div class="form-group col-md-6">
                                                                 <label>ID</label>
-                                                                <input type="number" class="form-control" disabled placeholder="id" th:value="${loggedUser.id}">
+                                                                <input type="number" class="form-control" disabled placeholder="id" th:value="${loggedUser.id}" readonly/>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label>Name</label>
-                                                                <input type="text" class="form-control" placeholder="Employee Name" name="employee_name" th:value="${loggedUser.employee_name}">
+                                                                <input type="text" class="form-control" placeholder="Employee Name" name="employee_name" th:value="${loggedUser.employee_name}" />
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Password</label>
-                                                            <input type="password" class="form-control" placeholder="password" name="password" th:value="${loggedUser.password}">
+                                                            <input type="password" class="form-control" disabled placeholder="password" th:field="*{password}" readonly/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Organization</label>
-                                                            <input type="text" class="form-control" disabled placeholder="Organization" th:field="*{organization.organization_name}">
+                                                            <input type="text" class="form-control" disabled placeholder="Organization" th:field="*{organization.organization_name}" readonly/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Department</label>
-                                                            <input type="text" class="form-control" disabled placeholder="Department" th:field="*{department.department_name}">
+                                                            <input type="text" class="form-control" disabled placeholder="Department" th:field="*{department.department_name}" readonly/>
                                                         </div>
                                                         <div class="form-row">
                                                             <div class="form-group col-md-4">
                                                                 <label>Email</label>
-                                                                <input type="email" class="form-control" disabled placeholder="Email" th:field="*{email}">
+                                                                <input type="email" class="form-control" disabled placeholder="Email" th:field="*{email}" readonly/>
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label>Phone</label>
-                                                                <input type="text" class="form-control" placeholder="phone" name="phone" th:value="${loggedUser.phone}">
+                                                                <input type="text" class="form-control" placeholder="phone" name="phone" th:value="${loggedUser.phone}" />
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label>Gender</label>
-                                                                <input type="email" class="form-control" disabled placeholder="Gender" th:field="*{gender}">
+                                                                <input type="email" class="form-control" disabled placeholder="Gender" th:field="*{gender}" readonly/>
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label>Role</label>
-                                                                <input type="text" class="form-control" disabled placeholder="Role" th:field="*{roles}">
+                                                                <input type="text" class="form-control" disabled placeholder="Role" th:field="*{roles}" readonly/>
                                                             </div>
                                                         </div>
                                                         <button class="btn btn-primary" type="submit">Commit Change</button>

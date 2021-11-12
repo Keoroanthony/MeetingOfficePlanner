@@ -78,8 +78,16 @@ public class MainController {
     /********                  CRUD USERS                          ********/
 
     @GetMapping("/users")
-    public String showUserList(Model model){
+    public String showUserList(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model){
+
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+        int id = employee.getOrganization().getId();
+
+        List<Employee> usersList = employeeService.getAllEmailByOrganization(id);
         List<Employee> listUsers =employeeService.listUsers();
+
+        model.addAttribute("usersList", usersList);
         model.addAttribute("listUsers", listUsers);
         return "users";
 
@@ -127,13 +135,12 @@ public class MainController {
     public String updateUserProfile(@AuthenticationPrincipal CustomEmployeeDetails loggedUser,
                                     @RequestParam(value = "Id", required = false) int Id,
                                     @RequestParam(value = "employee_name", required = false) String employee_name,
-                                    @RequestParam(value = "password", required = false) String password,
                                     @RequestParam(value = "phone", required = false) String phone,
                                     Employee employee,
                                     RedirectAttributes redirectAttributes){
 
         //Perform update
-        employeeService.updateUserDetails(Id, employee_name, password, phone);
+        employeeService.updateUserDetails(Id, employee_name, phone);
 
         //Set current loggedIn user details on top.
        loggedUser.setEmployeeName(employee_name);
