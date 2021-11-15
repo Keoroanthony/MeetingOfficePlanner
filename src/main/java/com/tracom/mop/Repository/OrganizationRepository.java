@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface OrganizationRepository extends JpaRepository<Organization, Integer> {
     @Query("SELECT i FROM Organization i WHERE i.id = ?1")
-    Organization findById(int id);
+    Organization findByOrganization_name(int id);
 }

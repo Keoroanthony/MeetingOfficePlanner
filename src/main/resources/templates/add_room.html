@@ -5,19 +5,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Users - MOP </title>
+    <title>Add Room - MOP</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo2.png">
-    <!-- Datatable -->
-    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!--select picker-->
+    <link rel="stylesheet" href="vendor/select2/css/select2.min.css">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
 </head>
-
 <body>
 <!--*******************
-Preloader start
+    Preloader start
 ********************-->
 <div id="preloader">
     <div class="sk-three-bounce">
@@ -201,8 +200,8 @@ Preloader start
         Sidebar end
     ***********************************-->
     <!--**********************************
-        Content body start
-    ***********************************-->
+           Content body start
+       ***********************************-->
     <div class="content-body">
         <div class="container-fluid">
             <div class="row page-titles mx-0">
@@ -214,69 +213,50 @@ Preloader start
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Users</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/users}">Users</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Add Room</a></li>
                     </ol>
                 </div>
             </div>
             <!-- row -->
-
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Users DataTable</h4>
+                            <h4 class="card-title">Add Room Form</h4>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example2" class="display" style="width:100%">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="user: ${usersList}">
-                                        <td th:text="${user.id}">ID</td>
-                                        <td th:text="${user.employee_name}">Name</td>
-                                        <td th:text="${user.email}">Email</td>
-                                        <td th:text="${user.phone}">Phone</td>
-                                        <td th:text="${user.department.department_name}">Department</td>
-                                        <td th:text="${user.roles}">Role</td>
-                                        <td>
-                                            <a th:href="@{'/edit_user/' + ${user.id}}"
-                                               onclick="return confirm('Are you sure you want to edit the User details?')">
-                                                <button class="btn btn-info">Edit <i class='fas fa-edit'></i></button>
-                                            </a>
-                                            &nbsp;
-                                            <a th:href="@{'/delete_user/' +${user.id}}"
-                                               onclick="return confirm('Are you sure you want to delete the User?')">
-                                                <button class="btn btn-danger">Delete <i class='fa fa-trash-alt'></i></button>
-                                            </a>
-                                        </td>
-
-                                    </tr>
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-                                <br>
-                                <a class="btn btn-info" th:href="@{/add_user}">Add Users<i class='fas fa-plus'></i></a>
+                            <div class="basic-form">
+                                <form th:action="@{/room_save}" method="post" th:object="${room}">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Room Name</label>
+                                            <input type="text" class="form-control" id="room" th:field="*{room_name}" required/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Capacity Count</label>
+                                            <input type="number" class="form-control" id="capacity" th:field="*{capacity_count}" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Resources</label>
+                                            <label>Select list (select one/multiple):</label>
+                                            <select class="form-control" id="multi-value-select" multiple="multiple" th:field="*{resources}">
+<!--                                                <option value="0">Choose**</option>-->
+                                                <option th:each="resources : ${resources}" th:value="${resources.id}" th:text="${resources.resource_name}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Organization</label>
+                                            <select id="organization" class="form-control" th:field="*{organization}">
+                                                <option value="0">Choose**</option>
+                                                <option th:each="org : ${organizations}" th:value="${org.id}" th:text="${org.organization_name}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add Room</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -290,8 +270,8 @@ Preloader start
 
 
     <!--**********************************
-       Footer start
-   ***********************************-->
+         Footer start
+     ***********************************-->
     <div class="footer">
         <div class="copyright">
             <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Anthony Keoro</a> 2021</p>
@@ -323,12 +303,9 @@ Preloader start
 <script src="vendor/global/global.min.js"></script>
 <script src="js/quixnav-init.js"></script>
 <script src="js/custom.min.js"></script>
-
-
-
-<!-- Datatable -->
-<script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="js/plugins-init/datatables.init.js"></script>
+<!-- select picker -->
+<script src="vendor/select2/js/select2.full.min.js"></script>
+<script src="js/plugins-init/select2-init.js"></script>
 
 </body>
 

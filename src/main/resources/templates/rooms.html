@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Users - MOP </title>
+    <title>Rooms - MOP </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo2.png">
     <!-- Datatable -->
@@ -225,7 +225,7 @@ Preloader start
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Users DataTable</h4>
+                            <h4 class="card-title">Rooms DataTable</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -234,29 +234,24 @@ Preloader start
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Role</th>
+                                        <th>Capacity</th>
+                                        <th>Resources</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="user: ${usersList}">
-                                        <td th:text="${user.id}">ID</td>
-                                        <td th:text="${user.employee_name}">Name</td>
-                                        <td th:text="${user.email}">Email</td>
-                                        <td th:text="${user.phone}">Phone</td>
-                                        <td th:text="${user.department.department_name}">Department</td>
-                                        <td th:text="${user.roles}">Role</td>
+                                    <tr th:each="room: ${roomList}">
+                                        <td th:text="${room.id}">ID</td>
+                                        <td th:text="${room.room_name}">Name</td>
+                                        <td th:text="${room.capacity_count}">Email</td>
+                                        <td th:text="${room.resources}">Phone</td>
                                         <td>
-                                            <a th:href="@{'/edit_user/' + ${user.id}}"
-                                               onclick="return confirm('Are you sure you want to edit the User details?')">
+                                            <a th:href="@{'/edit_room/' + ${room.id}}">
                                                 <button class="btn btn-info">Edit <i class='fas fa-edit'></i></button>
                                             </a>
                                             &nbsp;
-                                            <a th:href="@{'/delete_user/' +${user.id}}"
-                                               onclick="return confirm('Are you sure you want to delete the User?')">
+                                            <a th:href="@{'/delete_room/' +${room.id}}"
+                                               onclick="return confirm('Are you sure you want to delete the Room?')">
                                                 <button class="btn btn-danger">Delete <i class='fa fa-trash-alt'></i></button>
                                             </a>
                                         </td>
@@ -267,16 +262,14 @@ Preloader start
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Role</th>
+                                        <th>Capacity</th>
+                                        <th>Resources</th>
                                         <th>Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>
                                 <br>
-                                <a class="btn btn-info" th:href="@{/add_user}">Add Users<i class='fas fa-plus'></i></a>
+                                <a class="btn btn-info" th:href="@{/add_room}">Add Room<i class='fas fa-plus'></i></a>
                             </div>
                         </div>
                     </div>

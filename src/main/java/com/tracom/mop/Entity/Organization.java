@@ -18,6 +18,8 @@ public class Organization {
     private List<Department> department = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy = "organization")
     private List<Employee> employeeList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy = "organization")
+    private List<Room> roomList = new ArrayList<>();
 
     public Organization() {
     }
@@ -52,6 +54,14 @@ public class Organization {
 
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
+    }
+
+    public List<Room> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(List<Room> roomList) {
+        this.roomList = roomList;
     }
 
     @Override

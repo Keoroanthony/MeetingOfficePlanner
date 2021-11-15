@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
     @Query("SELECT i FROM Employee i WHERE i.id = ?1")
-    Department findByEmail(int id);
+    Department findByDepartment_name(int id);
 }

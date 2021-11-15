@@ -1,14 +1,8 @@
 package com.tracom.mop.Controller;
 
 import com.tracom.mop.CustomEmployeeDetails;
-import com.tracom.mop.Entity.Department;
-import com.tracom.mop.Entity.Employee;
-import com.tracom.mop.Entity.Organization;
-import com.tracom.mop.Entity.Role;
-import com.tracom.mop.Service.DepartmentService;
-import com.tracom.mop.Service.EmployeeService;
-import com.tracom.mop.Service.OrganizationService;
-import com.tracom.mop.Service.RoleService;
+import com.tracom.mop.Entity.*;
+import com.tracom.mop.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,33 +23,47 @@ public class MainController {
     private OrganizationService organizationService;
     private DepartmentService departmentService;
     private RoleService roleService;
+    private ResourcesService resourcesService;
+    private RoomService roomService;
 
     @Autowired
     public MainController(EmployeeService employeeService,
                           OrganizationService organizationService,
                           DepartmentService departmentService,
-                          RoleService roleService){
+                          RoleService roleService,
+                          ResourcesService resourcesService,
+                          RoomService roomService){
         this.employeeService = employeeService;
         this.organizationService = organizationService;
         this.departmentService = departmentService;
         this.roleService = roleService;
+        this.resourcesService = resourcesService;
+        this.roomService = roomService;
     }
 
-
+    /********                  INDEX PAGE                         ********/
     @GetMapping("")
     public String viewHomePage() {
         return ("index");
     }
 
 
+
+    /********                  LOGIN PAGE                         ********/
     @GetMapping(value = "/login")
     public String login (){
         return "login";
     }
+
+
+    /********                  LOGOUT PAGE                         ********/
     @GetMapping("/logout")
     public String logOutPage() {
         return ("index");
     }
+
+
+    /********                  HOME PAGE                         ********/
     @GetMapping("/home")
     public String homePage(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model) {
         String email = loggedUser.getUsername();
@@ -64,6 +72,9 @@ public class MainController {
         model.addAttribute("loggedUser", employee);
         return ("home");
     }
+
+
+    /********                  CALENDAR PAGE                         ********/
     @GetMapping("/calendar")
     public String calendarPage() {
         return ("calendar");
@@ -154,6 +165,7 @@ public class MainController {
 
 
 
+
     /********                  CRUD ORGANIZATION                           ********/
 
     @GetMapping("/organization")
@@ -174,6 +186,10 @@ public class MainController {
         return "add_organization";
 
     }
+
+
+
+
     /********                  CRUD DEPARTMENT                           ********/
     @GetMapping("/department")
     public String showDepartmentList(Model model){
@@ -194,9 +210,45 @@ public class MainController {
         return "add_department";
     }
 
+
+
     /********                  CRUD MEETINGS                           ********/
     @GetMapping("/meetings")
     public String meetingsPage() {
         return ("meetings");
     }
+
+
+
+
+    /********                  CRUD ROOMS                           ********/
+    @GetMapping("/rooms")
+    public String roomPage(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model){
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+        int id = employee.getOrganization().getId();
+        List<Room> roomList = roomService.getAllByOrganization(id);
+
+        model.addAttribute("roomList", roomList);
+        return ("rooms");
+    }
+    @GetMapping("/add_room")
+        public String newRoom(Model model){
+        model.addAttribute("room", new Room());
+        List<Organization> organizationList = organizationService.listOrganization();
+        List<Resources> resourcesList = resourcesService.listResources();
+        model.addAttribute("organizations", organizationList);
+        model.addAttribute("resources", resourcesList);
+
+        return "add_room";
+        }
+
+    @PostMapping("/room_save")
+    public String saveRoom(Room room) {
+        roomService.saveRoom(room);
+        return "redirect:/rooms";
+    }
 }
+
+
+

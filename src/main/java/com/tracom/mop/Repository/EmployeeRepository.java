@@ -16,7 +16,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query("UPDATE Employee u SET u.employee_name = :employee_name, u.phone = :phone WHERE u.id = :id")
     void updateUserDetails(@Param(value = "id") int id, @Param(value = "employee_name") String employee_name, @Param(value = "phone") String phone);
 
-//    public List<Employee> findByOrganization_Id(int organization_id);
     @Query("SELECT u FROM Employee u WHERE u.email IS NOT NULL AND u.organization.id = ?1")
     List<Employee> findAllEmailByOrganization(int id);
 }
