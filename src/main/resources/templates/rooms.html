@@ -181,8 +181,9 @@ Preloader start
                         class="fas fa-globe"></i><span class="nav-text">View</span></a>
                     <ul aria-expanded="false">
                         <li><a th:href="@{/meetings}">Meetings</a></li>
-                        <li><a th:href="@{/users}">Users</a></li>
+                        <li sec:authorize="hasAuthority('admin')"><a th:href="@{/users}">Users</a></li>
                         <li><a th:href="@{/profile}">Profile</a></li>
+                        <li><a th:href="@{/rooms}">Rooms</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
@@ -214,7 +215,7 @@ Preloader start
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Users</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/rooms}">Rooms</a></li>
                     </ol>
                 </div>
             </div>
@@ -236,16 +237,16 @@ Preloader start
                                         <th>Name</th>
                                         <th>Capacity</th>
                                         <th>Resources</th>
-                                        <th>Action</th>
+                                        <th sec:authorize="hasAuthority('admin')">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="room: ${roomList}">
                                         <td th:text="${room.id}">ID</td>
                                         <td th:text="${room.room_name}">Name</td>
-                                        <td th:text="${room.capacity_count}">Email</td>
-                                        <td th:text="${room.resources}">Phone</td>
-                                        <td>
+                                        <td th:text="${room.capacity_count}">capacity</td>
+                                        <td th:text="${room.resources}">Resources</td>
+                                        <td sec:authorize="hasAuthority('admin')">
                                             <a th:href="@{'/edit_room/' + ${room.id}}">
                                                 <button class="btn btn-info">Edit <i class='fas fa-edit'></i></button>
                                             </a>
@@ -264,12 +265,12 @@ Preloader start
                                         <th>Name</th>
                                         <th>Capacity</th>
                                         <th>Resources</th>
-                                        <th>Action</th>
+                                        <th sec:authorize="hasAuthority('admin')">Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>
                                 <br>
-                                <a class="btn btn-info" th:href="@{/add_room}">Add Room<i class='fas fa-plus'></i></a>
+                                <a class="btn btn-info" th:href="@{/add_room}" sec:authorize="hasAuthority('admin')">Add Room<i class='fas fa-plus'></i></a>
                             </div>
                         </div>
                     </div>

@@ -8,29 +8,17 @@
     <title>Meetings - MOP </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo2.png">
-    <!-- Form step -->
-    <link href="vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
-    <!-- Daterange picker -->
-    <link href="vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    <!-- Clockpicker -->
-    <link href="vendor/clockpicker/css/bootstrap-clockpicker.min.css" rel="stylesheet">
-    <!-- asColorpicker -->
-    <link href="vendor/jquery-asColorPicker/css/asColorPicker.min.css" rel="stylesheet">
-    <!-- Material color picker -->
-    <link href="vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
-    <!-- Pick date -->
-    <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
-    <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
-    <!--select picker-->
-    <link rel="stylesheet" href="vendor/select2/css/select2.min.css">
+    <!-- Datatable -->
+    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
-
 </head>
+
+<body>
 <!--*******************
-        Preloader start
-    ********************-->
+Preloader start
+********************-->
 <div id="preloader">
     <div class="sk-three-bounce">
         <div class="sk-child sk-bounce1"></div>
@@ -195,6 +183,7 @@
                         <li><a th:href="@{/meetings}">Meetings</a></li>
                         <li sec:authorize="hasAuthority('admin')"><a th:href="@{/users}">Users</a></li>
                         <li><a th:href="@{/profile}">Profile</a></li>
+                        <li><a th:href="@{/rooms}">Rooms</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
@@ -225,107 +214,68 @@
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Views</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Meetings</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/meetings}">Meetings</a></li>
                     </ol>
                 </div>
             </div>
             <!-- row -->
+
+
             <div class="row">
-                <div class="col-xl-12 col-xxl-12">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Steps</h4>
+                            <h4 class="card-title">Meetings DataTable</h4>
                         </div>
                         <div class="card-body">
-                            <form action="#" id="step-form-horizontal" class="step-form-horizontal">
-                                <div>
-                                    <h4>Meeting Info</h4>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-lg-6 mb-4">
-                                                <div class="form-group">
-                                                    <label class="text-label">Meeting Name*</label>
-                                                    <input type="text" name="firstName" class="form-control" placeholder="Timelines" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-4">
-                                                <div class="example">
-                                                    <p class="mb-1">Date Range With Time</p>
-                                                    <input type="text" class="form-control input-daterange-timepicker" name="daterange" placeholder="01/01/2020 1:30 PM - 01/01/2020 2:00 PM" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 mb-4">
-                                                <div class="form-group">
-                                                    <label class="text-label">Meeting Description*</label>
-                                                    <div class="input-group">
-                                                        <textarea class="form-control" rows="4" id="comment"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <h4>Room</h4>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-lg-12 mb-4">
-                                                <div class="form-group">
-                                                    <label class="text-label">Board Room*</label>
-                                                    <label>Select list (select one):</label>
-                                                    <select class="form-control" id="sel1">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <h4>Resources</h4>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-lg-12 mb-4">
-                                                <div class="form-group">
-                                                    <label class="text-label">Resources*</label>
-                                                    <label>Mutiple select list (hold shift to select more than one):</label>
-                                                    <select multiple class="form-control" id="sel2">
-                                                        <option>WhiteBoard</option>
-                                                        <option>Telephone</option>
-                                                        <option>Screen</option>
-                                                        <option>Camera</option>
-                                                        <option>Projector</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <h4>Co-Owners</h4>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-lg-12 mb-4">
-                                                <div class="form-group">
-                                                    <label class="text-label">Co-owners*</label>
-                                                    <label>Select list (select one/multiple):</label>
-                                                    <select id="multi-value-select" multiple="multiple">
-                                                        <option selected="selected">orange</option>
-                                                        <option>white</option>
-                                                        <option selected="selected">purple</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="skip-email text-center">
-                                                    <p>Recommended: send notifications to co-owners</p>
-                                                    <input type="checkbox" class="form-check-input" id="check2" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-                            </form>
+                            <div class="table-responsive">
+                                <table id="example2" class="display" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Meeting Name</th>
+                                        <th>Date & Time</th>
+                                        <th>Description</th>
+                                        <th>Room</th>
+                                        <th sec:authorize="hasAuthority('admin')">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="meeting: ${meetingList}">
+                                        <td th:text="${meeting.id}">ID</td>
+                                        <td th:text="${meeting.meeting_name}">Name</td>
+                                        <td th:text="${meeting.date_time}">date&time</td>
+                                        <td th:text="${meeting.meeting_description}">room</td>
+                                        <td th:text="${meeting.room.room_name}"><a th:href="@{/rooms}">Room</a></td>
+
+                                        <td sec:authorize="hasAuthority('admin')">
+                                            <a th:href="@{'/edit_room/' + ${meeting.id}}">
+                                                <button class="btn btn-info">Edit <i class='fas fa-edit'></i></button>
+                                            </a>
+                                            &nbsp;
+                                            <a th:href="@{'/delete_room/' +${meeting.id}}"
+                                               onclick="return confirm('Are you sure you want to delete the Room?')">
+                                                <button class="btn btn-danger">Delete <i class='fa fa-trash-alt'></i></button>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Meeting Name</th>
+                                        <th>Date & Time</th>
+                                        <th>Description</th>
+                                        <th>Room</th>
+                                        <th sec:authorize="hasAuthority('admin')">Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <br>
+                                <a class="btn btn-info" th:href="@{/add_meeting}" sec:authorize="hasAuthority('admin')">Add Meeting<i class='fas fa-plus'></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -338,8 +288,8 @@
 
 
     <!--**********************************
-        Footer start
-    ***********************************-->
+       Footer start
+   ***********************************-->
     <div class="footer">
         <div class="copyright">
             <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Anthony Keoro</a> 2021</p>
@@ -374,39 +324,10 @@
 
 
 
-<script src="vendor/jquery-steps/build/jquery.steps.min.js"></script>
-<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-<!-- Form validate init -->
-<script src="js/plugins-init/jquery.validate-init.js"></script>
+<!-- Datatable -->
+<script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="js/plugins-init/datatables.init.js"></script>
 
-
-
-<!-- Form step init -->
-<script src="js/plugins-init/jquery-steps-init.js"></script>
-
-<!-- Daterangepicker -->
-<!-- momment js is must -->
-<script src="vendor/moment/moment.min.js"></script>
-<script src="vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!-- clockpicker -->
-<script src="vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script>
-<!-- asColorPicker -->
-<script src="vendor/jquery-asColor/jquery-asColor.min.js"></script>
-<script src="vendor/jquery-asGradient/jquery-asGradient.min.js"></script>
-<script src="vendor/jquery-asColorPicker/js/jquery-asColorPicker.min.js"></script>
-<!-- Material color picker -->
-<script src="vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-<!-- pickdate -->
-<script src="vendor/pickadate/picker.js"></script>
-<script src="vendor/pickadate/picker.time.js"></script>
-<script src="vendor/pickadate/picker.date.js"></script>
-
-<!-- Daterangepicker -->
-<script src="js/plugins-init/bs-daterange-picker-init.js"></script>
-
-<!-- select picker -->
-<script src="vendor/select2/js/select2.full.min.js"></script>
-<script src="js/plugins-init/select2-init.js"></script>
 </body>
 
 </html>

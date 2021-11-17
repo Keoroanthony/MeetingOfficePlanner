@@ -25,6 +25,7 @@ public class MainController {
     private RoleService roleService;
     private ResourcesService resourcesService;
     private RoomService roomService;
+    private MeetingService meetingService;
 
     @Autowired
     public MainController(EmployeeService employeeService,
@@ -32,13 +33,15 @@ public class MainController {
                           DepartmentService departmentService,
                           RoleService roleService,
                           ResourcesService resourcesService,
-                          RoomService roomService){
+                          RoomService roomService,
+                          MeetingService meetingService){
         this.employeeService = employeeService;
         this.organizationService = organizationService;
         this.departmentService = departmentService;
         this.roleService = roleService;
         this.resourcesService = resourcesService;
         this.roomService = roomService;
+        this.meetingService = meetingService;
     }
 
     /********                  INDEX PAGE                         ********/
@@ -214,8 +217,31 @@ public class MainController {
 
     /********                  CRUD MEETINGS                           ********/
     @GetMapping("/meetings")
-    public String meetingsPage() {
+    public String meetingsPage(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model) {
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+        int id = employee.getOrganization().getId();
+        List<Meeting> meetingList = meetingService.getAllByOrganization(id);
+        model.addAttribute("meetingList", meetingList);
         return ("meetings");
+    }
+    @GetMapping("/add_meeting")
+    public String newMeeting(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model){
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+        int id = employee.getOrganization().getId();
+
+        model.addAttribute("meeting", new Meeting());
+        List<Employee> employeeList = employeeService.getAllEmailByOrganization(id);
+        List<Room> roomList = roomService.getAllByOrganization(id);
+        model.addAttribute("employeeList", employeeList);
+        model.addAttribute("roomList", roomList);
+        return ("add_meeting");
+    }
+    @PostMapping("/meeting_save")
+    public String saveRoom(Meeting meeting) {
+        meetingService.saveMeeting(meeting);
+        return "redirect:/meetings";
     }
 
 

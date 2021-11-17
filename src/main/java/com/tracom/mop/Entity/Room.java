@@ -26,6 +26,8 @@ public class Room {
             inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id")
     )
     private Set<Resources> resources = new HashSet<>();
+    @OneToOne(mappedBy = "room")
+    private Meeting meeting;
 
     public Room() {
     }
@@ -68,6 +70,14 @@ public class Room {
 
     public void setResources(Set<Resources> resources) {
         this.resources = resources;
+    }
+
+    public Meeting getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(Meeting meeting) {
+        this.meeting = meeting;
     }
 
     @Override
