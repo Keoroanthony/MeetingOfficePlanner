@@ -71,8 +71,14 @@ public class MainController {
     public String homePage(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model) {
         String email = loggedUser.getUsername();
         Employee employee = employeeService.getUserByEmail(email);
+        int id = employee.getOrganization().getId();
+
+        List<Meeting> meetingList = meetingService.getAllByOrganization(id);
+        List<Meeting> todayMeetings = meetingService.getOrganizationMeetingsToday(id);
 
         model.addAttribute("loggedUser", employee);
+        model.addAttribute("meetingList", meetingList);
+        model.addAttribute("todayMeetings", todayMeetings);
         return ("home");
     }
 

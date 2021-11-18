@@ -18,6 +18,7 @@ public class MeetingService {
     public void saveMeeting(Meeting meeting){
         meetingRepository.save(meeting);
     }
+
     //RETRIEVE
     public Meeting getByMeeting_name(String meeting_name) {
         return meetingRepository.findByMeeting_name(meeting_name);
@@ -25,6 +26,15 @@ public class MeetingService {
     public List<Meeting> getAllByOrganization(int id) {
         return meetingRepository.findAllByOrganization(id);
     }
+    public int noOfMeetingsInOrganization(int id){
+        return meetingRepository.numberOfMeetingsInOrganization(id);
+    }
+    public List<Meeting> getOrganizationMeetingsToday(int id){
+        return meetingRepository.findMeetingByOrganizationAndToday(id);
+    }
+//    public List<Meeting> getOrganizationMeetingsForLaterDate(int id){
+//        return meetingRepository.findMeetingByOrganizationOrderByTimeAndLaterDate(id);
+//    }
     // UPDATE
     public Meeting updateMeeting(int id){
         return meetingRepository.findById(id).get();

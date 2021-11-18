@@ -1,7 +1,11 @@
 package com.tracom.mop.Entity;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,9 +18,12 @@ public class Meeting {
     private String meeting_name;
     private String meeting_description;
     private int owner;
-    private String date;
-    private String start_time;
-    private String end_time;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate date;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    private LocalTime start_time;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    private LocalTime end_time;
     @OneToOne(fetch = FetchType.EAGER)
     private Room room;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -62,27 +69,27 @@ public class Meeting {
         this.owner = owner;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getStart_time() {
+    public LocalTime getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(String start_time) {
+    public void setStart_time(LocalTime start_time) {
         this.start_time = start_time;
     }
 
-    public String getEnd_time() {
+    public LocalTime getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(String end_time) {
+    public void setEnd_time(LocalTime end_time) {
         this.end_time = end_time;
     }
 
@@ -109,9 +116,9 @@ public class Meeting {
                 ", meeting_name='" + meeting_name + '\'' +
                 ", meeting_description='" + meeting_description + '\'' +
                 ", owner=" + owner +
-                ", date='" + date + '\'' +
-                ", start_time='" + start_time + '\'' +
-                ", end_time='" + end_time + '\'' +
+                ", date=" + date +
+                ", start_time=" + start_time +
+                ", end_time=" + end_time +
                 '}';
     }
 }

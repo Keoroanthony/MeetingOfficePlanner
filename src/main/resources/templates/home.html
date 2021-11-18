@@ -324,65 +324,12 @@
                                 <ul class="timeline">
                                     <li>
                                         <div class="timeline-badge primary"></div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>10 minutes ago</span>
-                                            <h6 class="m-t-5">Youtube, a video-sharing website, goes live.</h6>
+                                        <a class="timeline-panel text-muted" href="#" th:each="meetings : ${todayMeetings}">
+                                            <span th:text="${meetings.date}"></span>
+                                            <h6 class="m-t-5">The <span th:text="${meetings.meeting_name}"></span> meeting will start at <span th:text="${meetings.start_time}"></span></h6>
                                         </a>
                                     </li>
 
-                                    <li>
-                                        <div class="timeline-badge warning">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>20 minutes ago</span>
-                                            <h6 class="m-t-5">Mashable, a news website and blog, goes live.</h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge danger">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>30 minutes ago</span>
-                                            <h6 class="m-t-5">Administrator Meeting Started.</h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge success">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>32 minutes ago</span>
-                                            <h6 class="m-t-5">Developer Timelines Ended. </h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge warning">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>45 minutes ago</span>
-                                            <h6 class="m-t-5">Mashable, a news website and blog, goes live.</h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge dark">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>1 hour ago</span>
-                                            <h6 class="m-t-5">Mashable, a news website and blog, goes live.</h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge info">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>1 hour ago</span>
-                                            <h6 class="m-t-5">Google acquires Youtube.</h6>
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>

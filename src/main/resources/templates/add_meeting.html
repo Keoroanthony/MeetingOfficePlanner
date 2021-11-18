@@ -246,30 +246,30 @@
                                     <h4>Meeting Info</h4>
                                     <section>
                                         <div class="row">
-                                            <div class="col-lg-6 mb-4">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="text-label">Meeting Name*</label>
                                                     <input type="text" name="firstName" class="form-control" placeholder="Timelines" th:field="*{meeting_name}" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 mb-2">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="example">
                                                     <p class="mb-1">Date Range</p>
-                                                    <input class="form-control input-daterange-datepicker" type="text" name="daterange" value="01/01/2015 - 01/31/2015" th:field="*{date}" required>
+                                                    <input type="date" name="datepicker" class="form-control" th:field="*{date}" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 mb-1">
+                                            <div class="col-md-3">
                                                 <label>From</label>
                                                 <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-                                                    <input type="text" class="form-control" placeholder="10:00" th:field="*{start_time}"> <span class="input-group-append"><span class="input-group-text"><i
-                                                        class="fa fa-clock-o" style="color: #fff;"></i></span></span>
+                                                    <input type="time" class="form-control" placeholder="10:00" th:field="*{start_time}">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 mb-1">
+                                            <div class="col-md-3">
                                                 <label>To</label>
                                                 <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-                                                    <input type="text" class="form-control" placeholder="12:00" th:field="*{end_time}"> <span class="input-group-append"><span class="input-group-text"><i
-                                                        class="fa fa-clock-o" style="color: #fff;"></i></span></span>
+                                                    <input type="time" class="form-control" placeholder="12:00" th:field="*{end_time}">
                                                 </div>
                                             </div>
                                         </div>
