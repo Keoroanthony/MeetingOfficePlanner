@@ -235,7 +235,9 @@ Preloader start
                                     <tr>
                                         <th>ID</th>
                                         <th>Meeting Name</th>
-                                        <th>Date & Time</th>
+                                        <th>Date</th>
+                                        <th>From</th>
+                                        <th>To</th>
                                         <th>Description</th>
                                         <th>Room</th>
                                         <th sec:authorize="hasAuthority('admin')">Action</th>
@@ -245,7 +247,9 @@ Preloader start
                                     <tr th:each="meeting: ${meetingList}">
                                         <td th:text="${meeting.id}">ID</td>
                                         <td th:text="${meeting.meeting_name}">Name</td>
-                                        <td th:text="${meeting.date_time}">date&time</td>
+                                        <td th:text="${meeting.date}">date</td>
+                                        <td th:text="${meeting.start_time}">time</td>
+                                        <td th:text="${meeting.end_time}">time</td>
                                         <td th:text="${meeting.meeting_description}">room</td>
                                         <td th:text="${meeting.room.room_name}"><a th:href="@{/rooms}">Room</a></td>
 
@@ -266,7 +270,9 @@ Preloader start
                                     <tr>
                                         <th>ID</th>
                                         <th>Meeting Name</th>
-                                        <th>Date & Time</th>
+                                        <th>Date</th>
+                                        <th>From</th>
+                                        <th>To</th>
                                         <th>Description</th>
                                         <th>Room</th>
                                         <th sec:authorize="hasAuthority('admin')">Action</th>

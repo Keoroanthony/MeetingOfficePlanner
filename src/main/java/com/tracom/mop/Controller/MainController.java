@@ -239,7 +239,11 @@ public class MainController {
         return ("add_meeting");
     }
     @PostMapping("/meeting_save")
-    public String saveRoom(Meeting meeting) {
+    public String saveRoom(@AuthenticationPrincipal CustomEmployeeDetails loggedUser,Meeting meeting) {
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+        int employeeId = employee.getId();
+        meeting.setOwner(employeeId);
         meetingService.saveMeeting(meeting);
         return "redirect:/meetings";
     }

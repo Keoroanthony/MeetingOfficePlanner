@@ -14,7 +14,9 @@ public class Meeting {
     private String meeting_name;
     private String meeting_description;
     private int owner;
-    private String date_time;
+    private String date;
+    private String start_time;
+    private String end_time;
     @OneToOne(fetch = FetchType.EAGER)
     private Room room;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -60,12 +62,28 @@ public class Meeting {
         this.owner = owner;
     }
 
-    public String getDate_time() {
-        return date_time;
+    public String getDate() {
+        return date;
     }
 
-    public void setDate_time(String date_time) {
-        this.date_time = date_time;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
     }
 
     public Room getRoom() {
@@ -91,7 +109,9 @@ public class Meeting {
                 ", meeting_name='" + meeting_name + '\'' +
                 ", meeting_description='" + meeting_description + '\'' +
                 ", owner=" + owner +
-                ", date_time='" + date_time + '\'' +
+                ", date='" + date + '\'' +
+                ", start_time='" + start_time + '\'' +
+                ", end_time='" + end_time + '\'' +
                 '}';
     }
 }

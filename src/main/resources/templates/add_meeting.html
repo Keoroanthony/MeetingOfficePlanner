@@ -30,7 +30,7 @@
 </head>
 <!--*******************
         Preloader start
-    ********************-->
+********************-->
 <div id="preloader">
     <div class="sk-three-bounce">
         <div class="sk-child sk-bounce1"></div>
@@ -252,10 +252,24 @@
                                                     <input type="text" name="firstName" class="form-control" placeholder="Timelines" th:field="*{meeting_name}" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 mb-4">
+                                            <div class="col-lg-6 mb-2">
                                                 <div class="example">
-                                                    <p class="mb-1">Date Range With Time</p>
-                                                    <input type="text" class="form-control input-daterange-timepicker" name="daterange" placeholder="01/01/2020 1:30 PM - 01/01/2020 2:00 PM" th:field="*{date_time}" required>
+                                                    <p class="mb-1">Date Range</p>
+                                                    <input class="form-control input-daterange-datepicker" type="text" name="daterange" value="01/01/2015 - 01/31/2015" th:field="*{date}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-1">
+                                                <label>From</label>
+                                                <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
+                                                    <input type="text" class="form-control" placeholder="10:00" th:field="*{start_time}"> <span class="input-group-append"><span class="input-group-text"><i
+                                                        class="fa fa-clock-o" style="color: #fff;"></i></span></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-1">
+                                                <label>To</label>
+                                                <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
+                                                    <input type="text" class="form-control" placeholder="12:00" th:field="*{end_time}"> <span class="input-group-append"><span class="input-group-text"><i
+                                                        class="fa fa-clock-o" style="color: #fff;"></i></span></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -386,8 +400,18 @@
 <script src="vendor/pickadate/picker.time.js"></script>
 <script src="vendor/pickadate/picker.date.js"></script>
 
+
+
 <!-- Daterangepicker -->
 <script src="js/plugins-init/bs-daterange-picker-init.js"></script>
+<!-- Clockpicker init -->
+<script src="js/plugins-init/clock-picker-init.js"></script>
+<!-- asColorPicker init -->
+<script src="js/plugins-init/jquery-asColorPicker.init.js"></script>
+<!-- Material color picker init -->
+<script src="js/plugins-init/material-date-picker-init.js"></script>
+<!-- Pickdate -->
+<script src="js/plugins-init/pickadate-init.js"></script>
 
 <!-- select picker -->
 <script src="vendor/select2/js/select2.full.min.js"></script>
