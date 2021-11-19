@@ -1,9 +1,15 @@
 package com.tracom.mop.Controller;
 
 import com.tracom.mop.CustomEmployeeDetails;
+import com.tracom.mop.EmployeeNotFoundException;
 import com.tracom.mop.Entity.*;
 import com.tracom.mop.Service.*;
+import com.tracom.mop.Utility.Utility;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 
@@ -26,6 +36,7 @@ public class MainController {
     private ResourcesService resourcesService;
     private RoomService roomService;
     private MeetingService meetingService;
+    private JavaMailSender mailSender;
 
     @Autowired
     public MainController(EmployeeService employeeService,
@@ -34,6 +45,7 @@ public class MainController {
                           RoleService roleService,
                           ResourcesService resourcesService,
                           RoomService roomService,
+                          JavaMailSender mailSender,
                           MeetingService meetingService){
         this.employeeService = employeeService;
         this.organizationService = organizationService;
@@ -41,6 +53,7 @@ public class MainController {
         this.roleService = roleService;
         this.resourcesService = resourcesService;
         this.roomService = roomService;
+        this.mailSender = mailSender;
         this.meetingService = meetingService;
     }
 
@@ -283,6 +296,95 @@ public class MainController {
     public String saveRoom(Room room) {
         roomService.saveRoom(room);
         return "redirect:/rooms";
+    }
+
+
+
+    /********                  FORGOT PASSWORD                          ********/
+
+    @GetMapping("/forgot_password")
+    public String showForgotPasswordForm() {
+        return "forgot_password";
+    }
+
+    @PostMapping("/forgot_password")
+    public String processForgotPassword(HttpServletRequest request, Model model) {
+        String email = request.getParameter("email");
+        String token = RandomString.make(45);
+
+        try {
+            employeeService.updateResetPasswordToken(token, email);
+
+            //generate reset pwd link
+            String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+
+
+            sendEmail(email, resetPasswordLink);
+            //send email
+            model.addAttribute("message", "We have sent a password reset link your email.");
+
+        } catch (EnumConstantNotPresentException | MessagingException | UnsupportedEncodingException | EmployeeNotFoundException ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        return "forgot_password";
+    }
+
+    private void sendEmail(String email, String resetPasswordLink) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("anton.maoga@gmail.com", "Meeting Office Planner");
+        helper.setTo(email);
+
+        String subject = "Password Reset - Meeting Office Planner";
+
+        String content = "<p>Hi,</p>"
+                + "<p>Here is your requested reset password link</p>"
+                + "<p>Click and follow instructions to reset password</p>"
+                + "<p><b><a href=\"" + resetPasswordLink + "\">Change my password</a></b></p>"
+                + "<p>Kindly ignore the email if you didn't request for a password reset.</p>"
+                + "<p>Regards,</p>"
+                + "<p>Meeting Office Planner</p>";
+
+        helper.setSubject(subject);
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
+
+
+
+    @GetMapping("/reset_password")
+    public String showResetPasswordForm(@Param(value = "token") String token, Model model){
+        Employee employee = employeeService.getUserByToken(token);
+
+        if (employee == null){
+            model.addAttribute("message", "Invalid Token");
+        }
+
+        model.addAttribute("token", token);
+
+        return "reset_password";
+    }
+
+    @PostMapping("/reset_password")
+    public String processResetPassword(HttpServletRequest request, Model model){
+        String token = request.getParameter("token");
+        String password = request.getParameter("password");
+
+        Employee user = employeeService.getUserByToken(token);
+
+        if (user == null){
+            model.addAttribute("messageErr", "Invalid Token");
+        }
+        else {
+            employeeService.updatePassword(user, password);
+            model.addAttribute("message", "You have successfully changed your password");
+        }
+
+        model.addAttribute("token", token);
+
+        return "login";
     }
 }
 

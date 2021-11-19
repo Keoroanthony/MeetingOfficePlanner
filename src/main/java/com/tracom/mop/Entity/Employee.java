@@ -22,6 +22,8 @@ public class Employee {
     @Column(nullable = false)
     private String password;
     private boolean enabled;
+    private String resetPasswordToken;
+    private String setPasswordToken;
 
     //******Associated Entities**********//
     @ManyToOne(fetch = FetchType.LAZY)
@@ -122,6 +124,22 @@ public class Employee {
         this.roles = roles;
     }
 
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+    public String getSetPasswordToken() {
+        return setPasswordToken;
+    }
+
+    public void setSetPasswordToken(String setPasswordToken) {
+        this.setPasswordToken = setPasswordToken;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -132,6 +150,8 @@ public class Employee {
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
+                ", resetPasswordToken='" + resetPasswordToken + '\'' +
+                ", setPasswordToken='" + setPasswordToken + '\'' +
                 '}';
     }
 }

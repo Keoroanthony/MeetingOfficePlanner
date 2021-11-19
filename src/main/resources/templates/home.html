@@ -324,7 +324,7 @@
                                 <ul class="timeline">
                                     <li>
                                         <div class="timeline-badge primary"></div>
-                                        <a class="timeline-panel text-muted" href="#" th:each="meetings : ${todayMeetings}">
+                                        <a class="timeline-panel text-muted" th:href="@{/meetings}" th:each="meetings : ${todayMeetings}">
                                             <span th:text="${meetings.date}"></span>
                                             <h6 class="m-t-5">The <span th:text="${meetings.meeting_name}"></span> meeting will start at <span th:text="${meetings.start_time}"></span></h6>
                                         </a>

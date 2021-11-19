@@ -18,4 +18,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Query("SELECT u FROM Employee u WHERE u.email IS NOT NULL AND u.organization.id = ?1")
     List<Employee> findAllEmailByOrganization(int id);
+
+    @Modifying
+    @Query("UPDATE Employee u SET u.password = :password WHERE u.id = :id")
+    void updateUserPassword(@Param(value = "password") String password, @Param(value = "id") int userId);
+
+    Employee findByResetPasswordToken(String token);
+
+    Employee findBySetPasswordToken(String token);
 }
