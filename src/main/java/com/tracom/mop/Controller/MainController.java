@@ -372,13 +372,13 @@ public class MainController {
         String token = request.getParameter("token");
         String password = request.getParameter("password");
 
-        Employee user = employeeService.getUserByToken(token);
+        Employee employee = employeeService.getUserByToken(token);
 
-        if (user == null){
+        if (employee == null){
             model.addAttribute("messageErr", "Invalid Token");
         }
         else {
-            employeeService.updatePassword(user, password);
+            employeeService.updatePassword(employee, password);
             model.addAttribute("message", "You have successfully changed your password");
         }
 
