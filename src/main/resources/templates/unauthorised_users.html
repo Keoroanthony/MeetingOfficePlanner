@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<html xmlns:th="http://www.thymeleaf.org" lang="EN"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Add Users - MOP</title>
+    <title>Users - MOP </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo2.png}">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo2.png">
+    <!-- Datatable -->
+    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
 </head>
+
 <body>
 <!--*******************
-    Preloader start
+Preloader start
 ********************-->
 <div id="preloader">
     <div class="sk-three-bounce">
@@ -37,8 +41,8 @@
     ***********************************-->
     <div class="nav-header">
         <a th:href="@{/home}" class="brand-logo">
-            <img class="logo-abbr" src="./images/logo2.png" alt="">
-            <img class="brand-title" src="./images/logo1.png" alt="">
+            <img class="logo-abbr" src="images/logo2.png" alt="">
+            <img class="brand-title" src="images/logo1.png" alt="">
         </a>
 
         <div class="nav-control">
@@ -198,13 +202,14 @@
         Sidebar end
     ***********************************-->
     <!--**********************************
-           Content body start
-       ***********************************-->
+        Content body start
+    ***********************************-->
     <div class="content-body">
         <div class="container-fluid">
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
+                        <h4>Hi, welcome back!</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -212,72 +217,59 @@
                         <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
                         <li class="breadcrumb-item"><a th:href="@{/users}">Users</a></li>
                         <li class="breadcrumb-item"><a th:href="@{/users}">Unauthorised users</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit</a></li>
                     </ol>
                 </div>
             </div>
             <!-- row -->
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title"><i class="fas fa-user-edit"></i>Edit User Form</h4>
+                            <h4 class="card-title"><i class="fa fa-user-times text-danger border-danger"></i>&nbsp;Unauthorised Users</h4>
                         </div>
                         <div class="card-body">
-                            <div class="basic-form">
-                                <form th:action="@{/users_update}" method="post" th:object="${editUser}">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Full Name</label>
-                                            <input type="text" class="form-control" th:field="*{employee_name}" placeholder="John Doe" required/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Email</label>
-                                            <input type="email" class="form-control" placeholder="example@gmail.com" th:field="*{email}" required/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Password</label>
-                                            <input type="password" class="form-control" placeholder="*******" th:field="*{password}" required/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Roles</label>
-                                            <select id="roles" class="form-control" th:field="*{roles}">
-                                                <option value="0">Choose**</option>
-                                                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label>Organization</label>
-                                            <select id="organization" class="form-control" th:field="*{organization}">
-                                                <option value="0">Choose**</option>
-                                                <option th:each="organization : ${organizations}" th:value="${organization.id}" th:text="${organization.organization_name}"></option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <label>Department</label>
-                                            <select id="department" class="form-control" th:field="*{department}">
-                                                <option value="0">Choose**</option>
-                                                <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.department_name}"></option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label>Phone</label>
-                                            <input type="number" class="form-control" th:field="*{phone}">
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <label>Gender</label>
-                                            <select id="inputState" class="form-control" th:field="*{gender}">
-                                                <option value="0" selected>Choose...</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Commit changes</button>
-                                </form>
+                            <div class="table-responsive">
+                                <table id="example2" class="display" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Department</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user: ${usersList}">
+                                        <td th:text="${user.id}">ID</td>
+                                        <td th:text="${user.employee_name}">Name</td>
+                                        <td th:text="${user.email}">Email</td>
+                                        <td th:text="${user.phone}">Phone</td>
+                                        <td th:text="${user.department.department_name}">Department</td>
+                                        <td th:text="${user.roles}">Role</td>
+                                        <td>
+                                            <a th:href="@{'/edit_user/' + ${user.id}}">
+                                                View<i class='fa fa-eye text-primary border-primary'></i>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Department</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -291,8 +283,8 @@
 
 
     <!--**********************************
-         Footer start
-     ***********************************-->
+       Footer start
+   ***********************************-->
     <div class="footer">
         <div class="copyright">
             <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Anthony Keoro</a> 2021</p>
@@ -324,6 +316,12 @@
 <script src="vendor/global/global.min.js"></script>
 <script src="js/quixnav-init.js"></script>
 <script src="js/custom.min.js"></script>
+
+
+
+<!-- Datatable -->
+<script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="js/plugins-init/datatables.init.js"></script>
 
 </body>
 

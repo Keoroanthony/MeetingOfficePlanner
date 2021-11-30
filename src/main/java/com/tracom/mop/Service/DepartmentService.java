@@ -27,6 +27,9 @@ public class DepartmentService {
     public List<Department> listDepartment(){
         return departmentRepository.findAll();
     }
+    public List<Department> getAllByOrganization(int id) {
+        return departmentRepository.existsDepartmentByOrganizationId(id);
+    }
 
     // DELETE
     public void deleteDepartment(int id){

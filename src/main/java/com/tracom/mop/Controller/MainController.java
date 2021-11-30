@@ -116,19 +116,52 @@ public class MainController {
         String email = loggedUser.getUsername();
         Employee employee = employeeService.getUserByEmail(email);
         int id = employee.getOrganization().getId();
+        int notUsers = employeeService.numberOfUnauthorizedUsersByOrganization(id);
+        int users = employeeService.numberOfAuthorizedUsersByOrganization(id);
+
+        model.addAttribute("noOfUnAuthorisedUsers", notUsers);
+        model.addAttribute("noOfAuthorisedUsers", users);
+        return "users";
+
+    }
+    @GetMapping("/authorised_users")
+    public String showAuthorisedUserList(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model){
+
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+        int id = employee.getOrganization().getId();
 
         List<Employee> usersList = employeeService.getAllEmailByOrganization(id);
         List<Employee> listUsers =employeeService.listUsers();
 
         model.addAttribute("usersList", usersList);
+        model.addAttribute("loggedUser", employee);
         model.addAttribute("listUsers", listUsers);
-        return "users";
+        return "authorised_users";
+
+    }
+    @GetMapping("/unauthorised_users")
+    public String showUnAuthorisedUserList(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model){
+
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+        int id = employee.getOrganization().getId();
+
+        List<Employee> usersList = employeeService.getAllWithoutPasswordByOrganization(id);
+
+        model.addAttribute("usersList", usersList);
+        return "unauthorised_users";
 
     }
     @GetMapping("/add_user")
-    public String addUser(Model model){
+    public String addUser(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model){
+
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+        int id = employee.getOrganization().getId();
+
         List<Organization> organizationList = organizationService.listOrganization();
-        List<Department> departmentList = departmentService.listDepartment();
+        List<Department> departmentList = departmentService.getAllByOrganization(id);
         List<Role> roleList = roleService.listRoles();
         model.addAttribute("user", new Employee());
         model.addAttribute("organizations", organizationList);
@@ -146,12 +179,23 @@ public class MainController {
         return "redirect:/users";
     }
     @RequestMapping("/edit_user/{id}")
-    public ModelAndView showCreateUser(@PathVariable(name = "id") int id){
+    public ModelAndView showCreateUser(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, @PathVariable(name = "id") int id, Model model){
 
         ModelAndView mnv = new ModelAndView("edit_user");
 
-        //User object
+        String email = loggedUser.getUsername();
+        Employee user = employeeService.getUserByEmail(email);
+        int orgId = user.getOrganization().getId();
+
+
         Employee employee = employeeService.updateUser(id);
+
+        List<Organization> organizationList = organizationService.listOrganization();
+        List<Department> departmentList = departmentService.getAllByOrganization(id);
+        List<Role> roleList = roleService.listRoles();
+        model.addAttribute("organizations", organizationList);
+        model.addAttribute("departments", departmentList);
+        model.addAttribute("roles", roleList);
         mnv.addObject("editUser", employee);
 
         return mnv;

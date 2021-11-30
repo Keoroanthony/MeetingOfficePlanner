@@ -19,7 +19,6 @@ public class Employee {
     private String email;
     @Column(nullable = false, length = 20)
     private String phone;
-    @Column(nullable = false)
     private String password;
     private boolean enabled;
     private String resetPasswordToken;

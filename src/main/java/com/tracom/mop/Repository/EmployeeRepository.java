@@ -12,12 +12,21 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query("SELECT u FROM Employee u WHERE u.email = ?1")
     Employee findByEmail(@Param("email")String email);
 
+    @Query("SELECT COUNT(u.id) FROM Employee u WHERE u.organization.id = ?1 AND u.password IS NULL")
+    int numberOfUnauthorizedUsers(int id);
+
+    @Query("SELECT COUNT(u.id) FROM Employee u WHERE u.organization.id = ?1 AND u.password IS NOT NULL")
+    int numberOfAuthorizedUsers(int id);
+
     @Modifying
     @Query("UPDATE Employee u SET u.employee_name = :employee_name, u.phone = :phone WHERE u.id = :id")
     void updateUserDetails(@Param(value = "id") int id, @Param(value = "employee_name") String employee_name, @Param(value = "phone") String phone);
 
-    @Query("SELECT u FROM Employee u WHERE u.email IS NOT NULL AND u.organization.id = ?1")
+    @Query("SELECT u FROM Employee u WHERE u.email IS NOT NULL AND u.organization.id = ?1 AND u.password IS NOT NULL")
     List<Employee> findAllEmailByOrganization(int id);
+
+    @Query("SELECT u FROM Employee u WHERE u.email IS NOT NULL AND u.organization.id = ?1 AND u.password IS NULL")
+    List<Employee> findAllWithoutPasswordByOrganization(int id);
 
     @Modifying
     @Query("UPDATE Employee u SET u.password = :password WHERE u.id = :id")

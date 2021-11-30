@@ -5,19 +5,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Users - MOP </title>
+    <title>Home - MOP</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo2.png">
-    <!-- Datatable -->
-    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-    <!-- Custom Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/owl-carousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="vendor/owl-carousel/css/owl.theme.default.min.css">
+    <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
+    <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
+
 <!--*******************
-Preloader start
+    Preloader start
 ********************-->
 <div id="preloader">
     <div class="sk-three-bounce">
@@ -145,7 +145,7 @@ Preloader start
                                     <i class="fa fa-user"></i>
                                     <span class="ml-2">Profile </span>
                                 </a>
-                                <a th:href="@{/logout}" class="dropdown-item">
+                                <a class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-sm">
                                     <i class="fa fa-key"></i>
                                     <span class="ml-2">Logout </span>
                                 </a>
@@ -181,7 +181,7 @@ Preloader start
                         class="fas fa-globe"></i><span class="nav-text">View</span></a>
                     <ul aria-expanded="false">
                         <li><a th:href="@{/meetings}">Meetings</a></li>
-                        <li><a th:href="@{/users}">Users</a></li>
+                        <li sec:authorize="hasAuthority('admin')"><a th:href="@{/users}">Users</a></li>
                         <li><a th:href="@{/profile}">Profile</a></li>
                         <li><a th:href="@{/rooms}">Rooms</a></li>
                     </ul>
@@ -201,10 +201,12 @@ Preloader start
     <!--**********************************
         Sidebar end
     ***********************************-->
+
     <!--**********************************
         Content body start
     ***********************************-->
     <div class="content-body">
+        <!-- row -->
         <div class="container-fluid">
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
@@ -213,71 +215,40 @@ Preloader start
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <span th:text="${#dates.format(#dates.createNow(), 'HH:mm')}"></span> &nbsp;
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Users</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>&nbsp;<i class="fas fa-home"></i>
                     </ol>
                 </div>
             </div>
-            <!-- row -->
-
-
             <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title"><i class="fa fa-users" style="height: 30px; width: 35px;"></i>&nbsp;Users DataTable</h4>
-                            <a class="btn btn-primary" th:href="@{/add_user}">Add Users &nbsp;<i class="fa fa-address-book" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example2" class="display" style="width:100%">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="user: ${usersList}">
-                                        <td th:text="${user.id}">ID</td>
-                                        <td th:text="${user.employee_name}">Name</td>
-                                        <td th:text="${user.email}">Email</td>
-                                        <td th:text="${user.phone}">Phone</td>
-                                        <td th:text="${user.department.department_name}">Department</td>
-                                        <td th:text="${user.roles}">Role</td>
-                                        <td>
-                                            <a th:href="@{'/edit_user/' + ${user.id}}"
-                                               onclick="return confirm('Are you sure you want to edit the User details?')">
-                                                <button class="btn btn-info">Edit <i class='fas fa-edit'></i></button>
-                                            </a>
-                                            &nbsp;
-                                            <a th:href="@{'/delete_user/' +${user.id}}"
-                                               onclick="return confirm('Are you sure you want to delete the User?')">
-                                                <button class="btn btn-danger">Delete <i class='fa fa-trash-alt'></i></button>
-                                            </a>
-                                        </td>
 
-                                    </tr>
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card">
+                        <div class="stat-widget-one card-body">
+                            <a th:href="@{/authorised_users}">
+                                <div class="stat-icon d-inline-block">
+                                    <i class="fa fa-users text-primary border-primary"></i>
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-text">Authorised &nbsp;<b th:text="${noOfAuthorisedUsers}"></b></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card">
+                        <div class="stat-widget-one card-body">
+                            <a th:href="@{/unauthorised_users}">
+                                <div class="stat-icon d-inline-block">
+                                    <i class="fa fa-user-times text-danger border-danger"></i>
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-text">UnAuthorised &nbsp;<b th:text="${noOfUnAuthorisedUsers}"></b></div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -290,8 +261,8 @@ Preloader start
 
 
     <!--**********************************
-       Footer start
-   ***********************************-->
+        Footer start
+    ***********************************-->
     <div class="footer">
         <div class="copyright">
             <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Anthony Keoro</a> 2021</p>
@@ -301,16 +272,25 @@ Preloader start
     <!--**********************************
         Footer end
     ***********************************-->
-
     <!--**********************************
-       Support ticket button start
-    ***********************************-->
-
-    <!--**********************************
-       Support ticket button end
-    ***********************************-->
-
-
+      Modals
+  ***********************************-->
+    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to Logout?</div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-light" data-dismiss="modal">NO</a>
+                    <a type="button" class="btn btn-danger" th:href="@{/logout}" >YES</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--**********************************
     Main wrapper end
@@ -325,10 +305,30 @@ Preloader start
 <script src="js/custom.min.js"></script>
 
 
+<!-- Vectormap -->
+<script src="vendor/raphael/raphael.min.js"></script>
+<script src="/vendor/morris/morris.min.js"></script>
 
-<!-- Datatable -->
-<script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="js/plugins-init/datatables.init.js"></script>
+
+<script src="vendor/circle-progress/circle-progress.min.js"></script>
+<script src="vendor/chart.js/Chart.bundle.min.js"></script>
+
+<script src="vendor/gaugeJS/dist/gauge.min.js"></script>
+
+<!--  flot-chart js -->
+<script src="vendor/flot/jquery.flot.js"></script>
+<script src="vendor/flot/jquery.flot.resize.js"></script>
+
+<!-- Owl Carousel -->
+<script src="vendor/owl-carousel/js/owl.carousel.min.js"></script>
+
+<!-- Counter Up -->
+<script src="vendor/jqvmap/js/jquery.vmap.min.js"></script>
+<script src="vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+<script src="vendor/jquery.counterup/jquery.counterup.min.js"></script>
+
+
+<script src="js/dashboard/dashboard-1.js"></script>
 
 </body>
 

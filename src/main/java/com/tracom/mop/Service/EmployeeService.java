@@ -34,6 +34,15 @@ public class EmployeeService {
     public List<Employee> getAllEmailByOrganization(int id) {
         return employeeRepository.findAllEmailByOrganization(id);
     }
+    public List<Employee> getAllWithoutPasswordByOrganization(int id) {
+        return employeeRepository.findAllWithoutPasswordByOrganization(id);
+    }
+    public int numberOfUnauthorizedUsersByOrganization(int id){
+        return employeeRepository.numberOfUnauthorizedUsers(id);
+    }
+    public int numberOfAuthorizedUsersByOrganization(int id){
+        return employeeRepository.numberOfAuthorizedUsers(id);
+    }
 
     // DELETE
     public void deleteUser(int id){
