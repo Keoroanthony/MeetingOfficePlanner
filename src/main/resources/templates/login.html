@@ -20,6 +20,9 @@
                     <div class="row no-gutters">
                         <div class="col-xl-12">
                             <div class="auth-form">
+                                <div class="alert alert-success" role="alert" th:if="${message != null}">
+                                    <p class="text-success">[[${message}]]</p>
+                                </div>
                                 <h4 class="text-center mb-4">Sign in your account</h4>
                                 <form th:action="@{/perform-login}" method="post">
                                     <div th:if="${param.error}">

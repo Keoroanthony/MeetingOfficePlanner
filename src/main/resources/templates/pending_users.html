@@ -216,7 +216,7 @@ Preloader start
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
                         <li class="breadcrumb-item"><a th:href="@{/users}">Users</a></li>
-                        <li class="breadcrumb-item"><a th:href="@{/users}">Unauthorised users</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/users}">Pending users</a></li>
                     </ol>
                 </div>
             </div>
@@ -226,7 +226,7 @@ Preloader start
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title"><i class="fa fa-user-times text-danger border-danger"></i>&nbsp;Unauthorised Users</h4>
+                            <h4 class="card-title"><i class="fa fa-ellipsis-h text-pink border-pink"></i><i class="fa fa-user text-pink border-pink"></i>&nbsp;Pending Users</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -239,7 +239,6 @@ Preloader start
                                         <th>Phone</th>
                                         <th>Department</th>
                                         <th>Role</th>
-                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -250,12 +249,6 @@ Preloader start
                                         <td th:text="${user.phone}">Phone</td>
                                         <td th:text="${user.department.department_name}">Department</td>
                                         <td th:text="${user.roles}">Role</td>
-                                        <td>
-                                            <a th:href="@{'/edit_user/' + ${user.id}}">
-                                                <i class='fa fa-check text-success border-success'></i>
-                                            </a>
-                                        </td>
-
                                     </tr>
                                     </tbody>
                                     <tfoot>
@@ -266,7 +259,6 @@ Preloader start
                                         <th>Phone</th>
                                         <th>Department</th>
                                         <th>Role</th>
-                                        <th>Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>

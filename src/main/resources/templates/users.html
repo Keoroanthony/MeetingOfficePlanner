@@ -241,6 +241,21 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="card">
                         <div class="stat-widget-one card-body">
+                            <a th:href="@{/pending_users}">
+                                <div class="stat-icon d-inline-block">
+                                    <i class="fa fa-ellipsis-h text-pink border-pink"></i>
+                                </div>
+                                <div class="stat-content d-inline-block">
+                                    <div class="stat-text">Pending users &nbsp;<b th:text="${noOfPendingUsers}"></b></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card">
+                        <div class="stat-widget-one card-body">
                             <a th:href="@{/unauthorised_users}">
                                 <div class="stat-icon d-inline-block">
                                     <i class="fa fa-user-times text-danger border-danger"></i>

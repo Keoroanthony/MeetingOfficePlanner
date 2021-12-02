@@ -118,9 +118,11 @@ public class MainController {
         int id = employee.getOrganization().getId();
         int notUsers = employeeService.numberOfUnauthorizedUsersByOrganization(id);
         int users = employeeService.numberOfAuthorizedUsersByOrganization(id);
+        int pending = employeeService.numberOfPendingUsers(id);
 
         model.addAttribute("noOfUnAuthorisedUsers", notUsers);
         model.addAttribute("noOfAuthorisedUsers", users);
+        model.addAttribute("noOfPendingUsers", pending);
         return "users";
 
     }
@@ -147,10 +149,23 @@ public class MainController {
         Employee employee = employeeService.getUserByEmail(email);
         int id = employee.getOrganization().getId();
 
-        List<Employee> usersList = employeeService.getAllWithoutPasswordByOrganization(id);
+        List<Employee> usersList = employeeService.getAllUnauthorisedByOrganization(id);
 
         model.addAttribute("usersList", usersList);
         return "unauthorised_users";
+
+    }
+    @GetMapping("/pending_users")
+    public String showPendingUserList(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model){
+
+        String email = loggedUser.getUsername();
+        Employee employee = employeeService.getUserByEmail(email);
+        int id = employee.getOrganization().getId();
+
+        List<Employee> usersList = employeeService.getAllWithoutPasswordByOrganization(id);
+
+        model.addAttribute("usersList", usersList);
+        return "pending_users";
 
     }
     @GetMapping("/add_user")
@@ -191,7 +206,7 @@ public class MainController {
         Employee employee = employeeService.updateUser(id);
 
         List<Organization> organizationList = organizationService.listOrganization();
-        List<Department> departmentList = departmentService.getAllByOrganization(id);
+        List<Department> departmentList = departmentService.listDepartment();
         List<Role> roleList = roleService.listRoles();
         model.addAttribute("organizations", organizationList);
         model.addAttribute("departments", departmentList);
@@ -200,6 +215,21 @@ public class MainController {
 
         return mnv;
     }
+    @PostMapping(value = "/users_update")
+    public String approveUser(Employee employee, HttpServletRequest request,
+                              Model model){
+        String email = employee.getEmail();
+        String name = employee.getEmployee_name();
+        String token = RandomString.make(45);
+
+        employee.setEnabled(true);
+        employeeService.saveUser(employee);
+
+        //Generate Password Link
+        String passwordLink = Utility.getSiteURL(request) + "/set_password?token=" + token;
+        return "redirect:/users";
+    }
+
     @GetMapping( "/profile")
     public String profilePage(@AuthenticationPrincipal CustomEmployeeDetails loggedUser, Model model) {
         String email = loggedUser.getUsername();
