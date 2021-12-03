@@ -221,13 +221,41 @@ public class MainController {
         String email = employee.getEmail();
         String name = employee.getEmployee_name();
         String token = RandomString.make(45);
-
+    try {
         employee.setEnabled(true);
         employeeService.saveUser(employee);
 
         //Generate Password Link
         String passwordLink = Utility.getSiteURL(request) + "/set_password?token=" + token;
+        sendPasswordResetEmail(name, email, passwordLink);
+        model.addAttribute("message", "User created and email sent for them to set their password.");
+    }catch (MessagingException | UnsupportedEncodingException ex){
+        model.addAttribute("error", ex.getMessage());
+    }
         return "redirect:/users";
+    }
+
+    private void sendPasswordResetEmail(String name, String email, String passwordLink)throws MessagingException, UnsupportedEncodingException{
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("staff@mop.com", "Meeting Office Planner");
+        helper.setTo(email);
+
+        String subject = "Welcome To Meeting Office Planner";
+
+        String content = "<p>Hi " + name + ",</p>"
+                + "<p>Welcome to Meeting Office Planner, where we help you schedule your meetings in an efficient manner.</p>"
+                + "<p>Provided is a link that lets you set your password for the first time before accessing our services.</p>"
+                + "<p><b><a href=\"" + passwordLink + "\">Set password</a></b></p>"
+                + "<p>Once again, Welcome!</p><br>"
+                + "<p><b>Regards,</b></p>"
+                + "<p><b>Meeting Office Planner</b></p>";
+
+        helper.setSubject(subject);
+        helper.setText(content, true);
+
+        mailSender.send(message);
     }
 
     @GetMapping( "/profile")
