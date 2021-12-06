@@ -6,6 +6,7 @@ import com.tracom.mop.Entity.Employee;
 import com.tracom.mop.Entity.Organization;
 import com.tracom.mop.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -83,5 +85,40 @@ public class UserController {
         helper.setText(content, true);
 
         mailSender.send(message);
+    }
+/***********************SET FIRST TIME PASSWORD**************************/
+
+    @GetMapping(path = "/set_password")
+    public String getSetFirstTimePasswordForm(@Param(value = "token") String token, Model model){
+        Employee employee = employeeService.getUserSetPasswordByToken(token);
+
+        if (employee == null){
+            model.addAttribute("message", "User doesn't exist");
+        }
+
+        model.addAttribute("token", token);
+
+        return "first_password";
+    }
+
+    @PostMapping("/set_password")
+    public String setFirstTimePassword(HttpServletRequest request, Model model){
+
+        String token = request.getParameter("token");
+        String password = request.getParameter("password");
+
+        Employee employee = employeeService.getUserSetPasswordByToken(token);
+
+        if (employee == null){
+            model.addAttribute("messageErr", "Invalid Token");
+        }
+        else {
+
+            employeeService.setFirstTimePassword(employee, password);
+            model.addAttribute("message", "You have successfully set your password");
+
+        }
+
+        return "login";
     }
 }

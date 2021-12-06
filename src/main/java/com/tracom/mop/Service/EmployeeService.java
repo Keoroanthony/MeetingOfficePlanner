@@ -55,11 +55,11 @@ public class EmployeeService {
     }
 
     //UPDATE
-    public void updateUserDetails(int Id,
-                                  String employee_name,
-                                  String phone){
-        employeeRepository.updateUserDetails(Id, employee_name,phone);
-    }
+//    public void updateUserDetails(int Id,
+//                                  String employee_name,
+//                                  String phone){
+//        employeeRepository.updateUserDetails(Id, employee_name,phone);
+//    }
     public Employee updateUser(int id){
         return employeeRepository.findById(id).get();
     }
@@ -94,6 +94,11 @@ public class EmployeeService {
         return employeeRepository.findByResetPasswordToken(token);
     }
 
+    public void verifyUserById(String email,
+                               String role,
+                               Boolean enabled){
+        employeeRepository.queryAllByEmail(email, role, enabled);
+    }
 
     public Employee getUserSetPasswordByToken(String token){
         return employeeRepository.findBySetPasswordToken(token);
@@ -105,6 +110,15 @@ public class EmployeeService {
 
         employee.setPassword(encodedPassword);
         employee.setResetPasswordToken(null);
+
+        employeeRepository.save(employee);
+    }
+    public void setFirstTimePassword(Employee employee, String newPassword){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+
+        employee.setPassword(encodedPassword);
+        employee.setSetPasswordToken(null);
 
         employeeRepository.save(employee);
     }

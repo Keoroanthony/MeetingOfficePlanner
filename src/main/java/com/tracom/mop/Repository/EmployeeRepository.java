@@ -24,8 +24,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     int numberOfAuthorizedUsers(int id);
 
     @Modifying
-    @Query("UPDATE Employee u SET u.employee_name = :employee_name, u.phone = :phone WHERE u.id = :id")
-    void updateUserDetails(@Param(value = "id") int id, @Param(value = "employee_name") String employee_name, @Param(value = "phone") String phone);
+    @Query("UPDATE Employee u SET u.roles = :roles, u.enabled = :enabled WHERE u.id = :id")
+    void queryAllByEmail(@Param(value = "email") String id, @Param(value = "roles") String roles, @Param(value = "enabled") Boolean enabled);
+
+//    @Modifying
+//    @Query("UPDATE Employee u SET u.employee_name = :employee_name, u.phone = :phone WHERE u.id = :id")
+//    void updateUserDetails(@Param(value = "id") int id, @Param(value = "employee_name") String employee_name, @Param(value = "phone") String phone);
 
     //List of authorised users
     @Query("SELECT u FROM Employee u WHERE u.email IS NOT NULL AND u.organization.id = ?1 AND u.password IS NOT NULL")

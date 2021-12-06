@@ -215,21 +215,38 @@ public class MainController {
 
         return mnv;
     }
-    @PostMapping(value = "/users_update")
-    public String approveUser(Employee employee, HttpServletRequest request,
-                              Model model){
-        String email = employee.getEmail();
-        String name = employee.getEmployee_name();
+    @RequestMapping(path = "/users_update")
+    public String createUser(@RequestParam(value = "email") String email,
+                             @RequestParam(value = "role") String role,
+                             @RequestParam(value = "enabled") Boolean enabled,
+                             HttpServletRequest request,
+                             Model model){
+
+        employeeService.verifyUserById(email, role, enabled);
+
+        Employee employee = employeeService.getUserByEmail(email);
+
+        String emailAddress = employee.getEmail();
         String token = RandomString.make(45);
+        String name = employee.getEmployee_name();
+        System.out.println(email + " : " + token);
+
     try {
         employee.setEnabled(true);
-        employeeService.saveUser(employee);
+        employeeService.updateSetPasswordToken(token, email);
 
         //Generate Password Link
         String passwordLink = Utility.getSiteURL(request) + "/set_password?token=" + token;
+
+        System.out.println(passwordLink);
+
+        //send email
         sendPasswordResetEmail(name, email, passwordLink);
+
         model.addAttribute("message", "User created and email sent for them to set their password.");
-    }catch (MessagingException | UnsupportedEncodingException ex){
+
+
+    }catch (EnumConstantNotPresentException | MessagingException | UnsupportedEncodingException | EmployeeNotFoundException ex){
         model.addAttribute("error", ex.getMessage());
     }
         return "redirect:/users";
@@ -266,21 +283,21 @@ public class MainController {
         model.addAttribute("loggedUser", employee);
         return "profile";
     }
-    @PostMapping(path = "/edit_profile/update")
-    public String updateUserProfile(@AuthenticationPrincipal CustomEmployeeDetails loggedUser,
-                                    @RequestParam(value = "Id", required = false) int Id,
-                                    @RequestParam(value = "employee_name", required = false) String employee_name,
-                                    @RequestParam(value = "phone", required = false) String phone,
-                                    Employee employee,
-                                    RedirectAttributes redirectAttributes){
-
-        //Perform update
-        employeeService.updateUserDetails(Id, employee_name, phone);
-
-        //Set current loggedIn user details on top.
-       loggedUser.setEmployeeName(employee_name);
-        return "redirect:/profile";
-    }
+//    @PostMapping(path = "/edit_profile/update")
+//    public String updateUserProfile(@AuthenticationPrincipal CustomEmployeeDetails loggedUser,
+//                                    @RequestParam(value = "Id", required = false) int Id,
+//                                    @RequestParam(value = "employee_name", required = false) String employee_name,
+//                                    @RequestParam(value = "phone", required = false) String phone,
+//                                    Employee employee,
+//                                    RedirectAttributes redirectAttributes){
+//
+//        //Perform update
+//        employeeService.updateUserDetails(Id, employee_name, phone);
+//
+//        //Set current loggedIn user details on top.
+//       loggedUser.setEmployeeName(employee_name);
+//        return "redirect:/profile";
+//    }
     @RequestMapping("/delete_user/{id}")
     public String deleteService(@PathVariable(name = "id") int id) {
         employeeService.deleteUser(id);
