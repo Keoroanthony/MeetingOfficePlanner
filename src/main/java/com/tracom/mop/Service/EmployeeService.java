@@ -55,11 +55,11 @@ public class EmployeeService {
     }
 
     //UPDATE
-//    public void updateUserDetails(int Id,
-//                                  String employee_name,
-//                                  String phone){
-//        employeeRepository.updateUserDetails(Id, employee_name,phone);
-//    }
+    public void updateUserDetails(int Id,
+                                  String employee_name,
+                                  String phone){
+        employeeRepository.updateUserDetails(Id, employee_name,phone);
+    }
     public Employee updateUser(int id){
         return employeeRepository.findById(id).get();
     }

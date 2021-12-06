@@ -283,21 +283,21 @@ public class MainController {
         model.addAttribute("loggedUser", employee);
         return "profile";
     }
-//    @PostMapping(path = "/edit_profile/update")
-//    public String updateUserProfile(@AuthenticationPrincipal CustomEmployeeDetails loggedUser,
-//                                    @RequestParam(value = "Id", required = false) int Id,
-//                                    @RequestParam(value = "employee_name", required = false) String employee_name,
-//                                    @RequestParam(value = "phone", required = false) String phone,
-//                                    Employee employee,
-//                                    RedirectAttributes redirectAttributes){
-//
-//        //Perform update
-//        employeeService.updateUserDetails(Id, employee_name, phone);
-//
-//        //Set current loggedIn user details on top.
-//       loggedUser.setEmployeeName(employee_name);
-//        return "redirect:/profile";
-//    }
+    @PostMapping(path = "/edit_profile/update")
+    public String updateUserProfile(@AuthenticationPrincipal CustomEmployeeDetails loggedUser,
+                                    @RequestParam(value = "Id", required = false) int Id,
+                                    @RequestParam(value = "employee_name", required = false) String employee_name,
+                                    @RequestParam(value = "phone", required = false) String phone,
+                                    Employee employee,
+                                    RedirectAttributes redirectAttributes){
+
+        //Perform update
+        employeeService.updateUserDetails(Id, employee_name, phone);
+
+        //Set current loggedIn user details on top.
+       loggedUser.setEmployeeName(employee_name);
+        return "redirect:/profile";
+    }
     @RequestMapping("/delete_user/{id}")
     public String deleteService(@PathVariable(name = "id") int id) {
         employeeService.deleteUser(id);
