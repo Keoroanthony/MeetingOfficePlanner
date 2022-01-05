@@ -2,12 +2,14 @@ package com.tracom.mop.Service;
 
 import com.tracom.mop.EmployeeNotFoundException;
 import com.tracom.mop.Entity.Employee;
+import com.tracom.mop.Entity.Role;
 import com.tracom.mop.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EmployeeService {
@@ -94,10 +96,10 @@ public class EmployeeService {
         return employeeRepository.findByResetPasswordToken(token);
     }
 
-    public void verifyUserById(String email,
-                               String role,
-                               Boolean enabled){
-        employeeRepository.queryAllByEmail(email, role, enabled);
+    public void verifyEmployeesByEmail(String email,
+                                       Set<Role> roles,
+                                       Boolean enabled){
+        employeeRepository.findEmployeesByEmail(email, roles, enabled);
     }
 
     public Employee getUserSetPasswordByToken(String token){

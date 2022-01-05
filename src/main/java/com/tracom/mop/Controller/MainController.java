@@ -24,6 +24,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -217,12 +218,12 @@ public class MainController {
     }
     @RequestMapping(path = "/users_update")
     public String createUser(@RequestParam(value = "email") String email,
-                             @RequestParam(value = "role") String role,
+                             @RequestParam(value = "roles") Set<Role> roles,
                              @RequestParam(value = "enabled") Boolean enabled,
                              HttpServletRequest request,
                              Model model){
 
-        employeeService.verifyUserById(email, role, enabled);
+        employeeService.verifyEmployeesByEmail(email, roles, enabled);
 
         Employee employee = employeeService.getUserByEmail(email);
 
@@ -233,7 +234,7 @@ public class MainController {
 
     try {
         employee.setEnabled(true);
-        employeeService.updateSetPasswordToken(token, email);
+        employeeService.updateSetPasswordToken(token, emailAddress);
 
         //Generate Password Link
         String passwordLink = Utility.getSiteURL(request) + "/set_password?token=" + token;
@@ -241,7 +242,7 @@ public class MainController {
         System.out.println(passwordLink);
 
         //send email
-        sendPasswordResetEmail(name, email, passwordLink);
+        sendPasswordResetEmail(name, emailAddress, passwordLink);
 
         model.addAttribute("message", "User created and email sent for them to set their password.");
 
@@ -252,12 +253,12 @@ public class MainController {
         return "redirect:/users";
     }
 
-    private void sendPasswordResetEmail(String name, String email, String passwordLink)throws MessagingException, UnsupportedEncodingException{
+    private void sendPasswordResetEmail(String name, String emailAddress, String passwordLink)throws MessagingException, UnsupportedEncodingException{
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         helper.setFrom("staff@mop.com", "Meeting Office Planner");
-        helper.setTo(email);
+        helper.setTo(emailAddress);
 
         String subject = "Welcome To Meeting Office Planner";
 

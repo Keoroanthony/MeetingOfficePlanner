@@ -1,12 +1,14 @@
 package com.tracom.mop.Repository;
 
 import com.tracom.mop.Entity.Employee;
+import com.tracom.mop.Entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query("SELECT u FROM Employee u WHERE u.email = ?1")
@@ -25,7 +27,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Modifying
     @Query("UPDATE Employee u SET u.roles = :roles, u.enabled = :enabled WHERE u.email = :email")
-    void queryAllByEmail(@Param(value = "email") String id, @Param(value = "roles") String roles, @Param(value = "enabled") Boolean enabled);
+    void findEmployeesByEmail(@Param(value = "email") String email, @Param(value = "roles")Set<Role> roles, @Param(value = "enabled") Boolean enabled);
+
 
     @Modifying
     @Query("UPDATE Employee u SET u.employee_name = :employee_name, u.phone = :phone WHERE u.id = :id")
